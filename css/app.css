@@ -1,0 +1,23 @@
+/*
+	app.css
+*/
+
+section {
+	padding: 1px 10px 10px 10px;
+}
+
+section.heart {
+	background-color: #D9534F;
+}
+
+section.tree {
+	background-color: #5CB85C;
+}
+
+section.eye {
+	background-color: #428BCA;
+}
+
+section.leaf {
+	background-color: #F0AD4E;
+}
