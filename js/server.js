@@ -73,7 +73,7 @@ app.use(session({
 
 // this will cache the index.html for a day, which is bad
 // but it caches the bootstrap.css for a day which is good.
-
+// XXX Make this work in a GitHub Pages subdirectory (*.github.io/mc-choir/).
 app.use("/", express.static('client', { maxage: 86400000 }));
 app.use("/js", express.static('js', { maxage: 86400000 }));
 

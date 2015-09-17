@@ -1,0 +1,24 @@
+{
+  "name": "mc-choir",
+  "version": "0.1.0",
+  "description": "web app for participants in a musique concrete choir for WAC 2016",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "oghliner": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wfwalker/mc-choir.git"
+  },
+  "author": "Bill Walker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wfwalker/mc-choir/issues"
+  },
+  "homepage": "https://github.com/wfwalker/mc-choir#readme"
+}
