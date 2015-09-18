@@ -11,15 +11,13 @@ function getArrayBuffer(url) {
     req.open('GET', url);
 
     req.onload = function() {
-      // This is called even on 404 etc
-      // so check the status
+      // This is called even on 404 etc so check the status
       if (req.status == 200) {
         // Resolve the promise with the response body
         resolve(req.response);
       }
       else {
-        // Otherwise reject with the status text
-        // which will hopefully be a meaningful error
+        // Otherwise reject with the status text which will hopefully be a meaningful error
         reject(Error(req.statusText));
       }
     };
@@ -54,13 +52,14 @@ $(document).ready(function() {
 		if ($(this).hasClass('checked')) {
 			var activeRadioButton = $(this).parent().parent().find('.btn-group label.active input');
 			var soundURL = activeRadioButton.data('url');
-			var rates = activeRadioButton.data('rates');
+			var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
+			var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
-			console.log('START', activeRadioButton, soundURL, rates);
+			console.log('START', activeRadioButton, soundURL, randomRate);
 			setBufferFromURL(soundURL).then(function () {
 				// start playing immediately in a loop
 				gSoundSource.loop = true;
-				gSoundSource.playbackRate.linearRampToValueAtTime(Math.random() + 0.5, gAudioContext.currentTime);
+				gSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 				gSoundSource.start(0);
 			});
 		} else {
