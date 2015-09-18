@@ -17,8 +17,7 @@ setBufferFromURL = function(inSoundDataURL) {
 	}.bind(this);
 
 	mp3Request.onload = function(e) {
-		    gAudioContext.decodeAudioData(mp3Request.response, function(decodedBuffer) {
-
+	    gAudioContext.decodeAudioData(mp3Request.response, function(decodedBuffer) {
 			gSoundSource = gAudioContext.createBufferSource();
 			gSoundSource.connect(gAudioContext.destination);
 			gSoundSource.buffer = decodedBuffer;
@@ -41,11 +40,10 @@ $(document).ready(function() {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
-			console.log('START',
-				$(this).parent().parent().find('.btn-group label.active input')[0].id
-			);
+			var soundURL = $(this).parent().parent().find('.btn-group label.active input').data('url');
 
-			setBufferFromURL("./saw440.mp3");
+			console.log('START', soundURL);
+			setBufferFromURL(soundURL);
 		} else {
 			console.log('STOP');
 			gSoundSource.stop(0);
