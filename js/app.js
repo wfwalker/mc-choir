@@ -3,35 +3,46 @@
 var gAudioContext = new AudioContext();
 var gSoundSource = null;
 
-setBufferFromURL = function(inSoundDataURL) {
-	console.log('setBufferFromURL ' + inSoundDataURL);
+function getArrayBuffer(url) {
+  // Return a new promise.
+  return new Promise(function(resolve, reject) {
+    // Do the usual XHR stuff
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
 
-	var mp3Request = new XMLHttpRequest();
+    req.onload = function() {
+      // This is called even on 404 etc
+      // so check the status
+      if (req.status == 200) {
+        // Resolve the promise with the response body
+        resolve(req.response);
+      }
+      else {
+        // Otherwise reject with the status text
+        // which will hopefully be a meaningful error
+        reject(Error(req.statusText));
+      }
+    };
 
-	mp3Request.onerror = function(e) {
-		console.log('error downloading');
-	}.bind(this);
+    // Handle network errors
+    req.onerror = function() {
+      reject(Error("Network Error"));
+    };
 
-	mp3Request.onprogress = function(e) {
-		console.log(Math.round(100 * e.loaded / e.total) + '%');
-	}.bind(this);
+    // Make the request
+	req.responseType = 'arraybuffer';
+    req.send();
+  });
+}
 
-	mp3Request.onload = function(e) {
-	    gAudioContext.decodeAudioData(mp3Request.response, function(decodedBuffer) {
-			gSoundSource = gAudioContext.createBufferSource();
-			gSoundSource.connect(gAudioContext.destination);
-			gSoundSource.buffer = decodedBuffer;
-
-			// start playing immediately in a loop
-			gSoundSource.loop = true;
-			gSoundSource.playbackRate.linearRampToValueAtTime(Math.random() + 0.5, gAudioContext.currentTime);
-			gSoundSource.start(0);
-		}.bind(this));
-	}.bind(this);
-
-	mp3Request.open("GET", inSoundDataURL, true);
-	mp3Request.responseType = 'arraybuffer';
-	mp3Request.send();
+function setBufferFromURL(inSoundDataURL) {
+	return getArrayBuffer(inSoundDataURL).then(function(response) {
+	    return gAudioContext.decodeAudioData(response);
+	}).then(function(decodedBuffer) {
+		gSoundSource = gAudioContext.createBufferSource();
+		gSoundSource.connect(gAudioContext.destination);
+		gSoundSource.buffer = decodedBuffer;
+	});
 }
 
 $(document).ready(function() {
@@ -41,10 +52,17 @@ $(document).ready(function() {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
-			var soundURL = $(this).parent().parent().find('.btn-group label.active input').data('url');
+			var activeRadioButton = $(this).parent().parent().find('.btn-group label.active input');
+			var soundURL = activeRadioButton.data('url');
+			var rates = activeRadioButton.data('rates');
 
-			console.log('START', soundURL);
-			setBufferFromURL(soundURL);
+			console.log('START', activeRadioButton, soundURL, rates);
+			setBufferFromURL(soundURL).then(function () {
+				// start playing immediately in a loop
+				gSoundSource.loop = true;
+				gSoundSource.playbackRate.linearRampToValueAtTime(Math.random() + 0.5, gAudioContext.currentTime);
+				gSoundSource.start(0);
+			});
 		} else {
 			console.log('STOP');
 			gSoundSource.stop(0);
