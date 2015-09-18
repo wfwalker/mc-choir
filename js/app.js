@@ -24,6 +24,7 @@ setBufferFromURL = function(inSoundDataURL) {
 
 			// start playing immediately in a loop
 			gSoundSource.loop = true;
+			gSoundSource.playbackRate.linearRampToValueAtTime(Math.random() + 0.5, gAudioContext.currentTime);
 			gSoundSource.start(0);
 		}.bind(this));
 	}.bind(this);
