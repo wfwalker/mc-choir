@@ -6,8 +6,14 @@ var gOscillator = null;
 $(document).ready(function() {
 	$('button').click(function (e) {
 		e.preventDefault();
+
 		$(this).toggleClass('checked');
-		console.log('clicked play', $(this).hasClass('checked'));
+
+		console.log('clicked play',
+			$(this).parent().parent().find('.btn-group label.active input')[0].id,
+			e.target.id,
+			$(this).hasClass('checked')
+		);
 
 		if ($(this).hasClass('checked')) {
 			gOscillator = gAudioContext.createOscillator();
@@ -24,6 +30,4 @@ $(document).ready(function() {
 		e.preventDefault();
 		console.log('clicked selector', e.target.id);
 	});
-
-
 });
