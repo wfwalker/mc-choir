@@ -8,6 +8,7 @@ gulp.task('default', ['build', 'offline']);
 // The files comprised by the app.
 var srcFiles = [
   '*.html',
+  '*.mp3',
   'css/*.css',
   'fonts/*.*',
   'js/*.js',
