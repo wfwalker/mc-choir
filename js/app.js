@@ -20,6 +20,7 @@ $(document).ready(function() {
 		} else {
 			console.log('STOP');
 			gOscillator.stop(0);
+			gOscillator.disconnect();
 		}
 
 	});
