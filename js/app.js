@@ -44,7 +44,7 @@ function decodeAudioDataAsync(data){
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 		console.log('loaded', inSoundDataURL);
-	    return gAudioContext.decodeAudioDataAsync(response);
+	    return decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
 		console.log('decoded', inSoundDataURL);
 		gSounds[inSoundDataURL] = decodedBuffer;
