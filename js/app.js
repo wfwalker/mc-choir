@@ -2,8 +2,10 @@
 
 window.AudioContext = window.AudioContext||window.webkitAudioContext;
 var gAudioContext = new AudioContext();
-var gSoundSource = null;
+var gSoundSources = {};
 var gSounds = {};
+var gSoundProgress = 0;
+var gSoundTotal = 0;
 
 function getArrayBuffer(url) {
   // Return a new promise.
@@ -36,6 +38,7 @@ function getArrayBuffer(url) {
 }
 
 function decodeAudioDataAsync(data){
+	// TODO may not work in nightly 
     return new Promise(function(resolve, reject){
          gAudioContext.decodeAudioData(data, resolve, reject);
     });
@@ -43,10 +46,12 @@ function decodeAudioDataAsync(data){
 
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
-		console.log('loaded', inSoundDataURL);
+		gSoundProgress++;
+		$('#progress').text(100 * gSoundProgress / gSoundTotal);
 	    return decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
-		console.log('decoded', inSoundDataURL);
+		gSoundProgress++;
+		$('#progress').text(100 * gSoundProgress / gSoundTotal);
 		gSounds[inSoundDataURL] = decodedBuffer;
 	});
 }
@@ -58,6 +63,8 @@ $(document).ready(function() {
 		loadPromises.push(loadSound($(this).attr('data-url')));
 	});
 
+	gSoundTotal = 2 * loadPromises.length;
+
 	Promise.all(loadPromises).then(function () {
 		console.log('loaded all sounds');
 	});
@@ -68,6 +75,8 @@ $(document).ready(function() {
 
 	$('button').click(function (e) {
 		e.preventDefault();
+
+		var buttonID = e.target.id;
 
 		$(this).toggleClass('checked');
 
@@ -81,19 +90,20 @@ $(document).ready(function() {
 
 			if (gSounds[soundURL]) {
 				// start playing immediately in a loop
-				gSoundSource = gAudioContext.createBufferSource();
-				gSoundSource.connect(gAudioContext.destination);
-				gSoundSource.buffer = gSounds[soundURL];
-				gSoundSource.loop = true;
-				gSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
-				gSoundSource.start(0);
+				var newSoundSource = gAudioContext.createBufferSource();
+				newSoundSource.connect(gAudioContext.destination);
+				newSoundSource.buffer = gSounds[soundURL];
+				newSoundSource.loop = true;
+				newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
+				newSoundSource.start(0);
+				gSoundSources[buttonID] = newSoundSource;
 			} else {
 				console.log('ERROR, did not find in library', soundURL);
 			}
 		} else {
 			console.log('STOP');
-			gSoundSource.stop(0);
-			gSoundSource.disconnect();
+			gSoundSources[buttonID].stop(0);
+			gSoundSources[buttonID].disconnect();
 		}
 
 	});
