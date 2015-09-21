@@ -72,6 +72,6 @@ $(document).ready(function() {
 
 	$(document).on('change', 'input:radio', function (e) {
 		e.preventDefault();
-		console.log('clicked selector', e.target.id);
+		console.log('clicked selector', e.target);
 	});
 });
