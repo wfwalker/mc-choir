@@ -37,8 +37,10 @@ function getArrayBuffer(url) {
 
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
+		console.log('loaded', inSoundDataURL);
 	    return gAudioContext.decodeAudioData(response);
 	}).then(function(decodedBuffer) {
+		console.log('decoded', inSoundDataURL);
 		gSounds[inSoundDataURL] = decodedBuffer;
 	});
 }
