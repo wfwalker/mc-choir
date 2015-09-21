@@ -1,5 +1,6 @@
 // app.js
 
+window.AudioContext = window.AudioContext||window.webkitAudioContext;
 var gAudioContext = new AudioContext();
 var gSoundSource = null;
 var gSounds = {};
