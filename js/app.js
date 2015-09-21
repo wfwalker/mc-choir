@@ -35,10 +35,16 @@ function getArrayBuffer(url) {
   });
 }
 
+function decodeAudioDataAsync(data){
+    return new Promise(function(resolve, reject){
+         gAudioContext.decodeAudioData(data, resolve, reject);
+    });
+}
+
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 		console.log('loaded', inSoundDataURL);
-	    return gAudioContext.decodeAudioData(response);
+	    return gAudioContext.decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
 		console.log('decoded', inSoundDataURL);
 		gSounds[inSoundDataURL] = decodedBuffer;
