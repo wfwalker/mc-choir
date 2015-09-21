@@ -2,6 +2,7 @@
 
 var gAudioContext = new AudioContext();
 var gSoundSource = null;
+var gSounds = {};
 
 function getArrayBuffer(url) {
   // Return a new promise.
@@ -33,17 +34,29 @@ function getArrayBuffer(url) {
   });
 }
 
-function setBufferFromURL(inSoundDataURL) {
+function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 	    return gAudioContext.decodeAudioData(response);
 	}).then(function(decodedBuffer) {
-		gSoundSource = gAudioContext.createBufferSource();
-		gSoundSource.connect(gAudioContext.destination);
-		gSoundSource.buffer = decodedBuffer;
+		gSounds[inSoundDataURL] = decodedBuffer;
 	});
 }
 
 $(document).ready(function() {
+	var loadPromises = [];
+
+	$('input').each(function (index) {
+		loadPromises.push(loadSound($(this).attr('data-url')));
+	});
+
+	Promise.all(loadPromises).then(function () {
+		console.log('loaded all sounds');
+	});
+
+	// respond to a click on the play button either by:
+	// starting the sound indicated by the radio buttons, if the play button is not checked
+	// stopping the currently playing sound, if the play button is checked
+
 	$('button').click(function (e) {
 		e.preventDefault();
 
@@ -56,12 +69,18 @@ $(document).ready(function() {
 			var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
 			console.log('START', activeRadioButton, soundURL, randomRate);
-			setBufferFromURL(soundURL).then(function () {
+
+			if (gSounds[soundURL]) {
 				// start playing immediately in a loop
+				gSoundSource = gAudioContext.createBufferSource();
+				gSoundSource.connect(gAudioContext.destination);
+				gSoundSource.buffer = gSounds[soundURL];
 				gSoundSource.loop = true;
 				gSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 				gSoundSource.start(0);
-			});
+			} else {
+				console.log('ERROR, did not find in library', soundURL);
+			}
 		} else {
 			console.log('STOP');
 			gSoundSource.stop(0);
