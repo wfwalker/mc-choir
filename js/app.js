@@ -1,5 +1,11 @@
 // app.js
 
+// REDIRECT to HTTPS!
+var host = "wfwalker.github.io";
+if ((host == window.location.host) && (window.location.protocol != "https:")) {
+	window.location.protocol = "https";
+}
+
 window.AudioContext = window.AudioContext||window.webkitAudioContext;
 var gAudioContext = new AudioContext();
 var gSoundSources = {};
