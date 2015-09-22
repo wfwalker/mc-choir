@@ -47,11 +47,11 @@ function decodeAudioDataAsync(data){
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 		gSoundProgress++;
-		$('#progress').text(100 * gSoundProgress / gSoundTotal);
+		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 	    return decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
 		gSoundProgress++;
-		$('#progress').text(100 * gSoundProgress / gSoundTotal);
+		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 		gSounds[inSoundDataURL] = decodedBuffer;
 	});
 }
@@ -67,6 +67,7 @@ $(document).ready(function() {
 
 	Promise.all(loadPromises).then(function () {
 		console.log('loaded all sounds');
+		$('.progress').hide();
 	});
 
 	// respond to a click on the play button either by:
