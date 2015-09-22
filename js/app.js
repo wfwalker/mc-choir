@@ -98,11 +98,12 @@ $(document).ready(function() {
 				newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 				newSoundSource.start(0);
 				gSoundSources[buttonID] = newSoundSource;
+				console.log('STARTED', buttonID, gSoundSources[buttonID]);
 			} else {
 				console.log('ERROR, did not find in library', soundURL);
 			}
 		} else {
-			console.log('STOP');
+			console.log('STOP', buttonID, gSoundSources[buttonID]);
 			gSoundSources[buttonID].stop(0);
 			gSoundSources[buttonID].disconnect();
 		}
