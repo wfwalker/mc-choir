@@ -66,7 +66,7 @@ $(document).ready(function() {
 	var loadPromises = [];
 
 	$('input').each(function (index) {
-		loadPromises.push(loadSound($(this).attr('data-url')));
+		loadPromises.push(loadSound($(this).attr('value')));
 	});
 
 	gSoundTotal = 2 * loadPromises.length;
