@@ -2,8 +2,14 @@
 	app.css
 */
 
+
+label.radio-inline {
+	padding-right: 15px;
+}
+
 section {
-	padding: 1px 10px 10px 10px;
+	padding: 10px 10px 10px 10px;
+	font-size: 150%;
 }
 
 section.heart {
