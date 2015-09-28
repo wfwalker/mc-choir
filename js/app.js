@@ -88,8 +88,8 @@ $(document).ready(function() {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
-			var activeRadioButton = $(this).parent().parent().find('.btn-group label.active input');
-			var soundURL = activeRadioButton.data('url');
+			var activeRadioButton = $(this).parent().parent().find('input:checked');
+			var soundURL = activeRadioButton.attr('value');
 			var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 			var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
