@@ -9,6 +9,7 @@ gulp.task('default', ['build', 'offline']);
 var srcFiles = [
   '*.html',
   '*.mp3',
+  '*.png',
   'css/*.css',
   'fonts/*.*',
   'js/*.js',
