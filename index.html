@@ -3,6 +3,22 @@
 <head>
 	<title>Musique Concr&egrave;te Choir</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- apple web metadata -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- twitter card metadata -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wfwalker" />
+    <meta name="twitter:title" content="Music Concrete Choir" />
+    <meta name="twitter:description" content="Web client for participating in a musique concrete choir" />
+
+    <!-- w3c app manifest and favicon -->
+
+	<link rel="manifest" href="w3c-manifest.json">
+	<link rel="shortcut icon" href="./chorister.png">
+
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
 </head>
@@ -12,112 +28,75 @@
     <!-- Begin page content -->
     <div class="container">
       <div class="page-header">
-		<h1>Musique Concr&egrave;te Choir</h1>
+		<h1><img src="./chorister.png" height="64px" /> Musique Concr&egrave;te Choir</h1>
       </div>
 		<div class="progress">
 			<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
 			</div>
 		</div>
 
-		<section class='heart'>
-			<h2>
-				<button type="button" id='heartplay' class="btn btn-danger" data-toggle="button" aria-pressed="false" autocomplete="off">
-	  				<span class='glyphicon glyphicon-play'></span>
-				</button>
+		<h2>
+			<button type="button" id='heartplay' class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off">
+  				<span class='glyphicon glyphicon-play'></span>
+			</button>
 
-  				<span style='float: right' class='glyphicon glyphicon-heart'></span>
-			</h2>
+			<span style='float: right' class='glyphicon glyphicon-heart'></span>
+		</h2>
 
-			<div class="btn-group btn-group-justified" data-toggle="buttons">
-			  <label class="btn btn-danger active">
-			    <input type="radio" name="hearts" data-url='./Vla1-Harmonics.mp3' data-rates='1,2' autocomplete="off" checked>1
-			  </label>
-			  <label class="btn btn-danger">
-			    <input type="radio" name="hearts" data-url='./Vla2-Gliss.mp3' data-rates='0.5,1' autocomplete="off">2
-			  </label>
-			  <label class="btn btn-danger">
-			    <input type="radio" name="hearts" data-url='./Vla3-Melody1.mp3' data-rates='1,2' autocomplete="off">3
-			  </label>
-			  <label class="btn btn-danger">
-			    <input type="radio" name="hearts" data-url='./Vla4-Melody2.mp3' data-rates='0.5,1' autocomplete="off">4
-			  </label>
-			</div>
-		</section>
 
-		<section class='tree'>
-			<h2>
-				<button type="button" id='treeplay' class="btn btn-success" data-toggle="button" aria-pressed="false" autocomplete="off">
-	  				<span class='glyphicon glyphicon-play'></span>
-				</button>
+		<div class="btn-group btn-group-justified" data-toggle="buttons">
+			<label class="btn btn-danger">
+				<input type="radio" name="sounds" data-url='./Vla1-Harmonics.mp3' data-rates='1,2' autocomplete="off">1
+			</label>
+			<label class="btn btn-danger">
+				<input type="radio" name="sounds" data-url='./Vla2-Gliss.mp3' data-rates='0.5,1' autocomplete="off">2
+			</label>
+			<label class="btn btn-danger">
+				<input type="radio" name="sounds" data-url='./Vla3-Melody1.mp3' data-rates='1,2' autocomplete="off">3
+			</label>
+			<label class="btn btn-danger">
+				<input type="radio" name="sounds" data-url='./Vla4-Melody2.mp3' data-rates='0.5,1' autocomplete="off">4
+			</label>
 
-				<span style='float: right' class='glyphicon glyphicon-tree-conifer'></span>
-			</h2>
+			<label class="btn btn-success">
+				<input type="radio" name="sounds" data-url='./Vla5-Pizz.mp3' data-rates='0.5,1' autocomplete="off">1
+			</label>
+			<label class="btn btn-success">
+				<input type="radio" name="sounds" data-url='./Vla6-Arp.mp3' data-rates='0.5,0.75,1' autocomplete="off">2
+			</label>
+			<label class="btn btn-success">
+				<input type="radio" name="sounds" data-url='./Vla7-WoodKnock.mp3' data-rates='0.75,1' autocomplete="off">3
+			</label>
+			<label class="btn btn-success">
+				<input type="radio" name="sounds" data-url='./Vla8-Trill-Bartok.mp3' data-rates='0.25,1' autocomplete="off">4
+			</label>
 
-			<div class="btn-group btn-group-justified" data-toggle="buttons">
-			  <label class="btn btn-success active">
-			    <input type="radio" name="trees" data-url='./Vla5-Pizz.mp3' data-rates='0.5,1' autocomplete="off" checked>1
-			  </label>
-			  <label class="btn btn-success">
-			    <input type="radio" name="trees" data-url='./Vla6-Arp.mp3' data-rates='0.5,0.75,1' autocomplete="off">2
-			  </label>
-			  <label class="btn btn-success">
-			    <input type="radio" name="trees" data-url='./Vla7-WoodKnock.mp3' data-rates='0.75,1' autocomplete="off">3
-			  </label>
-			  <label class="btn btn-success">
-			    <input type="radio" name="trees" data-url='./Vla8-Trill-Bartok.mp3' data-rates='0.25,1' autocomplete="off">4
-			  </label>
-			</div>
-		</section>
+			<label class="btn btn-primary">
+				<input type="radio" name="sounds" data-url='./org-mel1.mp3' data-rates='0.5,1' autocomplete="off">1
+			</label>
+			<label class="btn btn-primary">
+				<input type="radio" name="sounds" data-url='./org-mel2.mp3' data-rates='0.5,1' autocomplete="off">2
+			</label>
+			<label class="btn btn-primary">
+				<input type="radio" name="sounds" data-url='./org-mel3.mp3' data-rates='0.5,1' autocomplete="off">3
+			</label>
+			<label class="btn btn-primary">
+				<input type="radio" name="sounds" data-url='./org-perc.mp3' data-rates='0.5,1' autocomplete="off">4
+			</label>
 
-		<section class='eye'>
-			<h2>
-				<button type="button" id='eyeplay' class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-	  				<span class='glyphicon glyphicon-play'></span>
-				</button>
-
-				<span style='float: right' class='glyphicon glyphicon-eye-open'></span>
-			</h2>
-
-			<div class="btn-group btn-group-justified" data-toggle="buttons">
-			  <label class="btn btn-primary active">
-			    <input type="radio" name="eyes" data-url='./org-mel1.mp3' data-rates='0.5,1' autocomplete="off" checked>1
-			  </label>
-			  <label class="btn btn-primary">
-			    <input type="radio" name="eyes" data-url='./org-mel2.mp3' data-rates='0.5,1' autocomplete="off">2
-			  </label>
-			  <label class="btn btn-primary">
-			    <input type="radio" name="eyes" data-url='./org-mel3.mp3' data-rates='0.5,1' autocomplete="off">3
-			  </label>
-			  <label class="btn btn-primary">
-			    <input type="radio" name="eyes" data-url='./org-perc.mp3' data-rates='0.5,1' autocomplete="off">4
-			  </label>
-			</div>
-		</section>
-
-		<section class='leaf'>
-			<h2>
-				<button type="button" id='leafplay' class="btn btn-warning" data-toggle="button" aria-pressed="false" autocomplete="off">
-	  				<span class='glyphicon glyphicon-play'></span>
-				</button>
-
-				<span style='float: right' class='glyphicon glyphicon-leaf'></span>
-			</h2>
-
-			<div class="btn-group btn-group-justified" data-toggle="buttons">
-			  <label class="btn btn-warning active">
-			    <input type="radio" name="leafs" data-url='./org-shout.mp3' data-rates='0.5,1' autocomplete="off" checked>1
-			  </label>
-			  <label class="btn btn-warning">
-			    <input type="radio" name="leafs" data-url='./org-stabs.mp3' data-rates='0.5,1' autocomplete="off">2
-			  </label>
-			  <label class="btn btn-warning">
-			    <input type="radio" name="leafs" data-url='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">3
-			  </label>
-			  <label class="btn btn-warning">
-			    <input type="radio" name="leafs" data-url='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">4
-			  </label>
-			</div>
-		</section>
+			<label class="btn btn-warning">
+				<input type="radio" name="sounds" data-url='./org-shout.mp3' data-rates='0.5,1' autocomplete="off">1
+			</label>
+			<label class="btn btn-warning">
+				<input type="radio" name="sounds" data-url='./org-stabs.mp3' data-rates='0.5,1' autocomplete="off">2
+			</label>
+			<label class="btn btn-warning">
+				<input type="radio" name="sounds" data-url='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">3
+			</label>
+			<label class="btn btn-warning">
+				<input type="radio" name="sounds" data-url='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">4
+			</label>
+		</div>
     </div>
 
 	<script src="js/jquery.min.js" type="text/javascript"></script>	
