@@ -7,30 +7,30 @@ li {
 }
 
 
-label.radio-inline {
-	padding-right: 40px;
-}
-
-.heart {
-	font-size: 48pt;
-	padding: 10px 10px 10px 10px;
+.heart label.radio-inline {
+	padding: 5px 40px 5px 40px;
 	background-color: #D9534F;
+	border: solid 3px white;
 }
 
-.tree {
+label {
 	font-size: 48pt;
-	padding: 10px 10px 10px 10px;
+}
+
+.tree label.radio-inline {
+	padding: 5px 40px 5px 40px;
 	background-color: #5CB85C;
+	border: solid 3px white;
 }
 
-.eye {
-	font-size: 48pt;
-	padding: 10px 10px 10px 10px;
+.eye label.radio-inline {
+	padding: 5px 40px 5px 40px;
 	background-color: #428BCA;
+	border: solid 3px white;
 }
 
-.leaf {
-	font-size: 48pt;
-	padding: 10px 10px 10px 10px;
+.leaf label.radio-inline {
+	padding: 5px 40px 5px 40px;
 	background-color: #F0AD4E;
+	border: solid 3px white;
 }
