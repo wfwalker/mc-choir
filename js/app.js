@@ -105,6 +105,7 @@ $(document).ready(function() {
 				newSoundSource.start(0);
 				gSoundSources[buttonID] = newSoundSource;
 				console.log('STARTED', buttonID, gSoundSources[buttonID]);
+				$('#soundInfo').text(soundURL);
 			} else {
 				console.log('ERROR, did not find in library', soundURL);
 			}
@@ -112,6 +113,7 @@ $(document).ready(function() {
 			console.log('STOP', buttonID, gSoundSources[buttonID]);
 			gSoundSources[buttonID].stop(0);
 			gSoundSources[buttonID].disconnect();
+			$('#soundInfo').text('');
 		}
 
 	});

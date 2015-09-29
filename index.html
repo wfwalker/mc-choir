@@ -27,88 +27,110 @@
 
     <!-- Begin page content -->
     <div class="container">
-      <div class="page-header">
-		<h2><img src="./chorister.png" height="40px" /> Musique Concr&egrave;te Choir</h2>
-      </div>
+		<div class="page-header">
+			<h4><img src="./chorister.png" height="32px" /> Musique Concr&egrave;te Choir</h4>
+		</div>
+
 		<div class="progress">
 			<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
 			</div>
 		</div>
 
-		<h2>
-			<button type="button" id='heartplay' class="btn btn-default" data-toggle="button" aria-pressed="false" autocomplete="off">
-  				<span class='glyphicon glyphicon-play'></span>
-			</button>
-		</h2>
+		<button type="button" id='heartplay' class="btn btn-lrg btn-default" data-toggle="button" aria-pressed="false" autocomplete="off">
+			<span class='glyphicon glyphicon-play'></span>
+		</button>
 
+		<span id='soundInfo'></span>
 
-		<section class="tree">
-			<label class="radio-inline">
-				<input type="radio" name="sounds" id='h1' value='./Vla1-Harmonics.mp3' data-rates='1,2' autocomplete="off">1
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" id='h2' value='./Vla2-Gliss.mp3' data-rates='0.5,1' autocomplete="off">2
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" id='h3' value='./Vla3-Melody1.mp3' data-rates='1,2' autocomplete="off">3
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" id='h4' value='./Vla4-Melody2.mp3' data-rates='0.5,1' autocomplete="off">4
-			</label>
+		<hr />
 
-			<span style='float: right' class='glyphicon glyphicon-tree-deciduous'></span>
-		</section>
+		<!-- Tabs -->
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active">
+				<a aria-controls="home" role="tab" data-toggle="tab" href="#heart">
+					<span style='float: right' class='glyphicon glyphicon-heart'></span>&nbsp;
+				</a>
+			</li>
+			<li role="presentation">
+				<a aria-controls="home" role="tab" data-toggle="tab" href="#eye">
+					<span style='float: right' class='glyphicon glyphicon-eye-open'></span>&nbsp;
+				</a>
+			</li>
+			<li role="presentation">
+				<a aria-controls="home" role="tab" data-toggle="tab" href="#tree">
+					<span style='float: right' class='glyphicon glyphicon-tree-deciduous'></span>&nbsp;
+				</a>
+			</li>
+			<li role="presentation">
+				<a aria-controls="home" role="tab" data-toggle="tab" href="#leaf">
+					<span style='float: right' class='glyphicon glyphicon-heart'></span>&nbsp;
+				</a>
+			</li>
+		</ul>
 
-		<section class="heart">
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./Vla5-Pizz.mp3' data-rates='0.5,1' autocomplete="off">1
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./Vla6-Arp.mp3' data-rates='0.5,0.75,1' autocomplete="off">2
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./Vla7-WoodKnock.mp3' data-rates='0.75,1' autocomplete="off">3
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./Vla8-Trill-Bartok.mp3' data-rates='0.25,1' autocomplete="off">4
-			</label>
-
-			<span style='float: right' class='glyphicon glyphicon-heart'></span>
-		</section>
-
-		<section class="eye">
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-mel1.mp3' data-rates='0.5,1' autocomplete="off">1
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-mel2.mp3' data-rates='0.5,1' autocomplete="off">2
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-mel3.mp3' data-rates='0.5,1' autocomplete="off">3
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-perc.mp3' data-rates='0.5,1' autocomplete="off">4
-			</label>
-
-			<span style='float: right' class='glyphicon glyphicon-eye-open'></span>
-		</section>
-
-		<section class="leaf">
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-shout.mp3' data-rates='0.5,1' autocomplete="off">1
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-stabs.mp3' data-rates='0.5,1' autocomplete="off">2
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">3
-			</label>
-			<label class="radio-inline">
-				<input type="radio" name="sounds" value='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">4
-			</label>
-
-			<span style='float: right' class='glyphicon glyphicon-leaf'></span>
-		</section>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active heart" id="heart">
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla5-Pizz.mp3' data-rates='0.5,1' autocomplete="off">1
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla6-Arp.mp3' data-rates='0.5,0.75,1' autocomplete="off">2
+				</label>
+				<br/>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla7-WoodKnock.mp3' data-rates='0.75,1' autocomplete="off">3
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla8-Trill-Bartok.mp3' data-rates='0.25,1' autocomplete="off">4
+				</label>
+			</div>
+			<div role="tabpanel" class="tab-pane eye" id="eye">
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-mel1.mp3' data-rates='0.5,1' autocomplete="off">1
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-mel2.mp3' data-rates='0.5,1' autocomplete="off">2
+				</label>
+				<br/>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-mel3.mp3' data-rates='0.5,1' autocomplete="off">3
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-perc.mp3' data-rates='0.5,1' autocomplete="off">4
+				</label>
+			</div>
+			<div role="tabpanel" class="tab-pane tree" id="tree">
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla1-Harmonics.mp3' data-rates='1,2' autocomplete="off">1
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla2-Gliss.mp3' data-rates='0.5,1' autocomplete="off">2
+				</label>
+				<br/>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla3-Melody1.mp3' data-rates='1,2' autocomplete="off">3
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./Vla4-Melody2.mp3' data-rates='0.5,1' autocomplete="off">4
+				</label>
+			</div>
+			<div role="tabpanel" class="tab-pane leaf" id="leaf">
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-shout.mp3' data-rates='0.5,1' autocomplete="off">1
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-stabs.mp3' data-rates='0.5,1' autocomplete="off">2
+				</label>
+				<br/>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">3
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="sounds" value='./org-sust1.mp3' data-rates='0.5,1' autocomplete="off">4
+				</label>
+			</div>
+		</div>
 	</div>
 
 	<script src="js/jquery.min.js" type="text/javascript"></script>	
