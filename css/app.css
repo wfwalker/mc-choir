@@ -6,22 +6,23 @@ body {
   padding-top: 60px;
 }
 
+label.radio-inline {
+	padding: 20px 20% 20px 15%;
+	font-size: 24pt;
+}
+
 .heart label.radio-inline {
-	padding: 5px 17% 5px 17%;
 	background-color: #D9534F;
 }
 
 .tree label.radio-inline {
-	padding: 5px 17% 5px 17%;
 	background-color: #5CB85C;
 }
 
 .eye label.radio-inline {
-	padding: 5px 17% 5px 17%;
 	background-color: #428BCA;
 }
 
 .leaf label.radio-inline {
-	padding: 5px 17% 5px 17%;
 	background-color: #F0AD4E;
 }
