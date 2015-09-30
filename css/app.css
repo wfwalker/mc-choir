@@ -2,35 +2,26 @@
 	app.css
 */
 
-li {
-	font-size: 18pt;
+body {
+  padding-top: 60px;
 }
-
 
 .heart label.radio-inline {
-	padding: 5px 40px 5px 40px;
+	padding: 5px 17% 5px 17%;
 	background-color: #D9534F;
-	border: solid 3px white;
-}
-
-label {
-	font-size: 48pt;
 }
 
 .tree label.radio-inline {
-	padding: 5px 40px 5px 40px;
+	padding: 5px 17% 5px 17%;
 	background-color: #5CB85C;
-	border: solid 3px white;
 }
 
 .eye label.radio-inline {
-	padding: 5px 40px 5px 40px;
+	padding: 5px 17% 5px 17%;
 	background-color: #428BCA;
-	border: solid 3px white;
 }
 
 .leaf label.radio-inline {
-	padding: 5px 40px 5px 40px;
+	padding: 5px 17% 5px 17%;
 	background-color: #F0AD4E;
-	border: solid 3px white;
 }

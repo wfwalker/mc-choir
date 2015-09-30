@@ -65,7 +65,7 @@ function loadSound(inSoundDataURL) {
 $(document).ready(function() {
 	var loadPromises = [];
 
-	$('input').each(function (index) {
+	$('label.radio-inline input').each(function (index) {
 		loadPromises.push(loadSound($(this).attr('value')));
 	});
 
@@ -80,15 +80,13 @@ $(document).ready(function() {
 	// starting the sound indicated by the radio buttons, if the play button is not checked
 	// stopping the currently playing sound, if the play button is checked
 
-	$('button').click(function (e) {
-		e.preventDefault();
-
+	$('#play').click(function (e) {
 		var buttonID = e.target.id;
 
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
-			var activeRadioButton = $(this).parent().parent().find('input:checked');
+			var activeRadioButton = $('label.radio-inline input:checked');
 			var soundURL = activeRadioButton.attr('value');
 			var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 			var randomRate = rates[Math.floor(Math.random() * rates.length)];
@@ -105,7 +103,7 @@ $(document).ready(function() {
 				newSoundSource.start(0);
 				gSoundSources[buttonID] = newSoundSource;
 				console.log('STARTED', buttonID, gSoundSources[buttonID]);
-				$('#soundInfo').text(soundURL);
+				$('#soundInfo').text(soundURL + ', ' + rates);
 			} else {
 				console.log('ERROR, did not find in library', soundURL);
 			}
