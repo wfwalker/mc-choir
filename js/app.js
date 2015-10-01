@@ -65,9 +65,13 @@ function loadSound(inSoundDataURL) {
 $(document).ready(function() {
 	var loadPromises = [];
 
+	// find all the radio button tags, assume all their values are soundfile URL's, load them.
+
 	$('label.radio-inline input').each(function (index) {
 		loadPromises.push(loadSound($(this).attr('value')));
 	});
+
+	// there are two tasks for each soundfile, to load and to decode
 
 	gSoundTotal = 2 * loadPromises.length;
 
@@ -103,7 +107,7 @@ $(document).ready(function() {
 				newSoundSource.start(0);
 				gSoundSources[buttonID] = newSoundSource;
 				console.log('STARTED', buttonID, gSoundSources[buttonID]);
-				$('#soundInfo').text(soundURL + ', ' + rates);
+				$('#soundInfo').text(soundURL + ', ' + rates + ' -> ' + randomRate);
 			} else {
 				console.log('ERROR, did not find in library', soundURL);
 			}
