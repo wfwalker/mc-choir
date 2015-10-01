@@ -69,19 +69,20 @@ function decodeAudioDataAsync(data){
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 		gSoundProgress++;
+		$('#loadingStatus').text('LOADED ' + inSoundDataURL);
 		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 	    return decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
 		gSounds[inSoundDataURL] = decodedBuffer;
 
 		gSoundProgress++;
-		console.log('DECODED', inSoundDataURL);
+		$('#loadingStatus').text('DECODED ' + inSoundDataURL);
 		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 
 		gReversedSounds[inSoundDataURL] = createReverseBuffer(decodedBuffer);
 
 		gSoundProgress++;
-		console.log('REVERSED', inSoundDataURL);
+		$('#loadingStatus').text('REVERSED ' + inSoundDataURL);
 		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 	}).catch(function(e) {
 		console.log('ERROR', e);
@@ -89,6 +90,8 @@ function loadSound(inSoundDataURL) {
 }
 
 $(document).ready(function() {
+	$('#loadingModal').modal('show');
+
 	var loadPromises = [];
 
 	// find all the radio button tags, assume all their values are soundfile URL's, load them.
@@ -103,7 +106,7 @@ $(document).ready(function() {
 
 	Promise.all(loadPromises).then(function () {
 		console.log('loaded all sounds');
-		$('.progress').hide();
+		$('#loadingModal').modal('hide');
 	});
 
 	// respond to a click on the play button either by:
