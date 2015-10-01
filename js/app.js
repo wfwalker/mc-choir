@@ -10,6 +10,7 @@ window.AudioContext = window.AudioContext||window.webkitAudioContext;
 var gAudioContext = new AudioContext();
 var gSoundSources = {};
 var gSounds = {};
+var gReversedSounds = {};
 var gSoundProgress = 0;
 var gSoundTotal = 0;
 
@@ -43,6 +44,21 @@ function getArrayBuffer(url) {
   });
 }
 
+function createReverseBuffer(inForwardBuffer) {
+	var forwardChannelData = inForwardBuffer.getChannelData(0);
+	var forwardArray = Array.prototype.slice.call( forwardChannelData );
+	Array.prototype.reverse.call(forwardArray);	
+
+	var reverseBuffer = gAudioContext.createBuffer(1, inForwardBuffer.length, inForwardBuffer.sampleRate);
+	var reverseChannelData = reverseBuffer.getChannelData(0);
+
+	for (i = 0; i < reverseBuffer.length; i++) {
+		reverseChannelData[i] = forwardArray[i];
+	}
+
+	return reverseBuffer;
+}
+
 function decodeAudioDataAsync(data){
 	// TODO may not work in nightly 
     return new Promise(function(resolve, reject){
@@ -56,9 +72,19 @@ function loadSound(inSoundDataURL) {
 		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 	    return decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
-		gSoundProgress++;
-		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 		gSounds[inSoundDataURL] = decodedBuffer;
+
+		gSoundProgress++;
+		console.log('DECODED', inSoundDataURL);
+		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
+
+		gReversedSounds[inSoundDataURL] = createReverseBuffer(decodedBuffer);
+
+		gSoundProgress++;
+		console.log('REVERSED', inSoundDataURL);
+		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
+	}).catch(function(e) {
+		console.log('ERROR', e);
 	});
 }
 
@@ -73,7 +99,7 @@ $(document).ready(function() {
 
 	// there are two tasks for each soundfile, to load and to decode
 
-	gSoundTotal = 2 * loadPromises.length;
+	gSoundTotal = 3 * loadPromises.length;
 
 	Promise.all(loadPromises).then(function () {
 		console.log('loaded all sounds');
@@ -101,7 +127,14 @@ $(document).ready(function() {
 				// start playing immediately in a loop
 				var newSoundSource = gAudioContext.createBufferSource();
 				newSoundSource.connect(gAudioContext.destination);
-				newSoundSource.buffer = gSounds[soundURL];
+
+				// play forwards or backwards, at random
+				if (Math.random() > 0.5) {
+					newSoundSource.buffer = gSounds[soundURL];
+				} else {
+					newSoundSource.buffer = gReversedSounds[soundURL];
+				}
+
 				newSoundSource.loop = true;
 				newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 				newSoundSource.start(0);
