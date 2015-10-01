@@ -11,16 +11,32 @@ label.radio-inline {
 	font-size: 24pt;
 }
 
+.glyphicon-heart {
+	color: #D9534F;	
+}
+
 .heart label.radio-inline {
 	background-color: #D9534F;
+}
+
+.glyphicon-tree-deciduous {
+	color: #5CB85C;
 }
 
 .tree label.radio-inline {
 	background-color: #5CB85C;
 }
 
+.glyphicon-eye-open {
+	color: #428BCA;
+}
+
 .eye label.radio-inline {
 	background-color: #428BCA;
+}
+
+.glyphicon-leaf {
+	color: #F0AD4E;
 }
 
 .leaf label.radio-inline {
