@@ -115,8 +115,6 @@ function startPlayingSound(activeRadioButton) {
 	var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 	var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
-	console.log('CHECKED', soundURL, randomRate);
-
 	if (gSounds[soundURL]) {
 		// start playing immediately in a loop
 		var newSoundSource = gAudioContext.createBufferSource();
@@ -142,11 +140,16 @@ function startPlayingSound(activeRadioButton) {
 
 function stopPlayingSound(activeRadioButton) {
 	var soundURL = activeRadioButton.attr('value');
-	console.log('UNCHECKED', soundURL);
-	gSoundSources[soundURL].stop(0);
-	gSoundSources[soundURL].disconnect();
-	$('#soundInfo').text('');
-	console.log('STOPPED', soundURL);
+
+	if (gSoundSources[soundURL]) {
+		gSoundSources[soundURL].stop(0);
+		gSoundSources[soundURL].disconnect();
+		gSoundSources[soundURL] = null;
+		$('#soundInfo').text('');
+		console.log('STOPPED', soundURL);		
+	} else {
+		console.log('not playing, stop does nothing');
+	}
 }
 
 // check the status of the SW
@@ -176,13 +179,23 @@ $(document).ready(function() {
 	// load all the sounds first
 	loadAllSounds();
 
+	$('#halt').click(function (e) {
+		$('label.checkbox-inline input').each(function (index) {
+			stopPlayingSound($(this));
+			$(this).removeClass('checked');
+			$(this).attr('checked', false);
+		});
+	});
+
 	// respond to a checkbox event either by starting or stopping sound
 	$(document).on('change', 'input:checkbox', function (e) {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
+			console.log('CHECKED', $(this));
 			startPlayingSound($(this));
 		} else {
+			console.log('UNCHECKED', $(this));
 			stopPlayingSound($(this));
 		}
 	});
