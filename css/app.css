@@ -2,20 +2,21 @@
 	app.css
 */
 
+
 body {
   padding-top: 60px;
 }
 
-label.radio-inline {
-	padding: 20px 20% 20px 15%;
-	font-size: 24pt;
+label.checkbox-inline {
+	padding: 2px 20px 10px 23px;
+	font-size: 72pt;
 }
 
 .glyphicon-heart {
 	color: #D9534F;	
 }
 
-.heart label.radio-inline {
+.heart label.checkbox-inline {
 	background-color: #D9534F;
 }
 
@@ -23,7 +24,7 @@ label.radio-inline {
 	color: #5CB85C;
 }
 
-.tree label.radio-inline {
+.tree label.checkbox-inline {
 	background-color: #5CB85C;
 }
 
@@ -31,7 +32,7 @@ label.radio-inline {
 	color: #428BCA;
 }
 
-.eye label.radio-inline {
+.eye label.checkbox-inline {
 	background-color: #428BCA;
 }
 
@@ -39,6 +40,6 @@ label.radio-inline {
 	color: #F0AD4E;
 }
 
-.leaf label.radio-inline {
+.leaf label.checkbox-inline {
 	background-color: #F0AD4E;
 }

@@ -89,18 +89,18 @@ function loadSound(inSoundDataURL) {
 	});
 }
 
-$(document).ready(function() {
+function loadAllSounds() {
 	$('#loadingModal').modal('show');
 
 	var loadPromises = [];
 
 	// find all the radio button tags, assume all their values are soundfile URL's, load them.
 
-	$('label.radio-inline input').each(function (index) {
+	$('label.checkbox-inline input').each(function (index) {
 		loadPromises.push(loadSound($(this).attr('value')));
 	});
 
-	// there are two tasks for each soundfile, to load and to decode
+	// there are three tasks for each soundfile, to load, to decode, and to reverse
 
 	gSoundTotal = 3 * loadPromises.length;
 
@@ -108,56 +108,66 @@ $(document).ready(function() {
 		console.log('loaded all sounds');
 		$('#loadingModal').modal('hide');
 	});
+}
 
-	// respond to a click on the play button either by:
-	// starting the sound indicated by the radio buttons, if the play button is not checked
-	// stopping the currently playing sound, if the play button is checked
+function startPlayingSound(activeRadioButton) {
+	var soundURL = activeRadioButton.attr('value');
+	var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
+	var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
-	$('#play').click(function (e) {
-		var buttonID = e.target.id;
+	console.log('CHECKED', soundURL, randomRate);
 
+	if (gSounds[soundURL]) {
+		// start playing immediately in a loop
+		var newSoundSource = gAudioContext.createBufferSource();
+		newSoundSource.connect(gAudioContext.destination);
+
+		// play forwards or backwards, at random
+		if (Math.random() > 0.5) {
+			newSoundSource.buffer = gSounds[soundURL];
+		} else {
+			newSoundSource.buffer = gReversedSounds[soundURL];
+		}
+
+		newSoundSource.loop = true;
+		newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
+		newSoundSource.start(0);
+		gSoundSources[soundURL] = newSoundSource;
+		console.log('STARTED', soundURL, gSoundSources[soundURL]);
+		$('#soundInfo').text(soundURL + ', ' + rates + ' -> ' + randomRate);
+	} else {
+		console.log('ERROR, did not find in library', soundURL);
+	}
+}
+
+function stopPlayingSound(activeRadioButton) {
+	var soundURL = activeRadioButton.attr('value');
+	console.log('UNCHECKED', soundURL);
+	gSoundSources[soundURL].stop(0);
+	gSoundSources[soundURL].disconnect();
+	$('#soundInfo').text('');
+	console.log('STOPPED', soundURL);
+}
+
+// as soon as the SW is ready, ask it to update
+navigator.serviceWorker.ready.then(function(registration) {
+	console.log('calling update');
+	registration.update();
+	console.log('called update');
+});
+
+$(document).ready(function() {
+	// load all the sounds first
+	loadAllSounds();
+
+	// respond to a checkbox event either by starting or stopping sound
+	$(document).on('change', 'input:checkbox', function (e) {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
-			var activeRadioButton = $('label.radio-inline input:checked');
-			var soundURL = activeRadioButton.attr('value');
-			var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
-			var randomRate = rates[Math.floor(Math.random() * rates.length)];
-
-			console.log('START', activeRadioButton, soundURL, randomRate);
-
-			if (gSounds[soundURL]) {
-				// start playing immediately in a loop
-				var newSoundSource = gAudioContext.createBufferSource();
-				newSoundSource.connect(gAudioContext.destination);
-
-				// play forwards or backwards, at random
-				if (Math.random() > 0.5) {
-					newSoundSource.buffer = gSounds[soundURL];
-				} else {
-					newSoundSource.buffer = gReversedSounds[soundURL];
-				}
-
-				newSoundSource.loop = true;
-				newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
-				newSoundSource.start(0);
-				gSoundSources[buttonID] = newSoundSource;
-				console.log('STARTED', buttonID, gSoundSources[buttonID]);
-				$('#soundInfo').text(soundURL + ', ' + rates + ' -> ' + randomRate);
-			} else {
-				console.log('ERROR, did not find in library', soundURL);
-			}
+			startPlayingSound($(this));
 		} else {
-			console.log('STOP', buttonID, gSoundSources[buttonID]);
-			gSoundSources[buttonID].stop(0);
-			gSoundSources[buttonID].disconnect();
-			$('#soundInfo').text('');
+			stopPlayingSound($(this));
 		}
-
-	});
-
-	$(document).on('change', 'input:radio', function (e) {
-		e.preventDefault();
-		console.log('clicked selector', e.target);
 	});
 });
