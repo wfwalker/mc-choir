@@ -149,12 +149,28 @@ function stopPlayingSound(activeRadioButton) {
 	console.log('STOPPED', soundURL);
 }
 
-// as soon as the SW is ready, ask it to update
-navigator.serviceWorker.ready.then(function(registration) {
-	console.log('calling update');
-	registration.update();
-	console.log('called update');
-});
+// check the status of the SW
+if ('serviceWorker' in navigator) {
+	if (navigator.serviceWorker.controller) {
+		console.log('SW controller');
+
+		// as soon as the SW is ready, ask it to update
+		navigator.serviceWorker.ready.then(function(registration) {
+			console.log('calling update');
+			registration.update().then(function() {
+				console.log('updated');
+			}).catch(function (e) {
+				console.log('update failed', e);
+			})
+
+			console.log('called update');
+		});
+	} else {
+		console.log('NO CONTROLLER');
+	}
+} else {
+	console.log('NO SERVICEWORKERS');
+}
 
 $(document).ready(function() {
 	// load all the sounds first
