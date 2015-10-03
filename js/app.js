@@ -152,39 +152,58 @@ function stopPlayingSound(activeRadioButton) {
 	}
 }
 
+function stopPlayingAllSounds() {
+	$('label.checkbox-inline input').each(function (index) {
+		stopPlayingSound($(this));
+		$(this).removeClass('checked');
+		$(this).attr('checked', false);
+	});
+}
+
+function stopPlayingAllOtherSounds(inCheckbox) {
+	$('label.checkbox-inline input').each(function (index) {
+		if ($(this).attr('value') == inCheckbox.attr('value')) {
+			console.log('SKIP', inCheckbox.attr('value'));
+		} else {
+			console.log('do not skip', inCheckbox.attr('value'), $(this).attr('value'))
+			stopPlayingSound($(this));
+			$(this).removeClass('checked');
+			$(this).attr('checked', false);
+		}
+	});
+}
+
+
 // check the status of the SW
 if ('serviceWorker' in navigator) {
 	if (navigator.serviceWorker.controller) {
-		console.log('SW controller');
+		$('#loadingStatus').text('SW controller');
 
 		// as soon as the SW is ready, ask it to update
 		navigator.serviceWorker.ready.then(function(registration) {
-			console.log('calling update');
+			$('#workerStatus').text('calling update');
 			registration.update().then(function() {
-				console.log('updated');
+				$('#workerStatus').text('updated');
 			}).catch(function (e) {
-				console.log('update failed', e);
+				$('#workerStatus').text('update failed', e);
 			})
 
-			console.log('called update');
+			$('#workerStatus').text('called update');
 		});
 	} else {
-		console.log('NO CONTROLLER');
+		$('#workerStatus').text('NO CONTROLLER');
 	}
 } else {
-	console.log('NO SERVICEWORKERS');
+	$('#workerStatus').text('NO SERVICEWORKERS');
 }
 
 $(document).ready(function() {
 	// load all the sounds first
 	loadAllSounds();
 
+	// halt button stops playing all sounds
 	$('#halt').click(function (e) {
-		$('label.checkbox-inline input').each(function (index) {
-			stopPlayingSound($(this));
-			$(this).removeClass('checked');
-			$(this).attr('checked', false);
-		});
+		stopPlayingAllSounds();
 	});
 
 	// respond to a checkbox event either by starting or stopping sound
@@ -192,6 +211,7 @@ $(document).ready(function() {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
+			stopPlayingAllOtherSounds($(this));
 			console.log('CHECKED', $(this));
 			startPlayingSound($(this));
 		} else {
