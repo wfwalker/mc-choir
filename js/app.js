@@ -148,7 +148,7 @@ function stopPlayingSound(activeRadioButton) {
 		$('#soundInfo').text('');
 		console.log('STOPPED', soundURL);		
 	} else {
-		console.log('not playing, stop does nothing');
+		// console.log('not playing, stop does nothing');
 	}
 }
 
@@ -163,9 +163,9 @@ function stopPlayingAllSounds() {
 function stopPlayingAllOtherSounds(inCheckbox) {
 	$('label.checkbox-inline input').each(function (index) {
 		if ($(this).attr('value') == inCheckbox.attr('value')) {
-			console.log('SKIP', inCheckbox.attr('value'));
+			// console.log('skip stopping', inCheckbox.attr('value'));
 		} else {
-			console.log('do not skip', inCheckbox.attr('value'), $(this).attr('value'))
+			// console.log('do not skip', inCheckbox.attr('value'), $(this).attr('value'))
 			stopPlayingSound($(this));
 			$(this).removeClass('checked');
 			$(this).attr('checked', false);
@@ -211,7 +211,12 @@ $(document).ready(function() {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
-			stopPlayingAllOtherSounds($(this));
+			if ($(this).data('exclusive')) {
+				console.log('exclusive, stop playing other sounds');
+				stopPlayingAllOtherSounds($(this));
+			} else {
+				console.log('not exclusive, do not stop other sounds');
+			}
 			console.log('CHECKED', $(this));
 			startPlayingSound($(this));
 		} else {
