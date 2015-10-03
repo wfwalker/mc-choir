@@ -115,8 +115,6 @@ function startPlayingSound(activeRadioButton) {
 	var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 	var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
-	console.log('CHECKED', soundURL, randomRate);
-
 	if (gSounds[soundURL]) {
 		// start playing immediately in a loop
 		var newSoundSource = gAudioContext.createBufferSource();
@@ -142,47 +140,82 @@ function startPlayingSound(activeRadioButton) {
 
 function stopPlayingSound(activeRadioButton) {
 	var soundURL = activeRadioButton.attr('value');
-	console.log('UNCHECKED', soundURL);
-	gSoundSources[soundURL].stop(0);
-	gSoundSources[soundURL].disconnect();
-	$('#soundInfo').text('');
-	console.log('STOPPED', soundURL);
+
+	if (gSoundSources[soundURL]) {
+		gSoundSources[soundURL].stop(0);
+		gSoundSources[soundURL].disconnect();
+		gSoundSources[soundURL] = null;
+		$('#soundInfo').text('');
+		console.log('STOPPED', soundURL);		
+	} else {
+		console.log('not playing, stop does nothing');
+	}
 }
+
+function stopPlayingAllSounds() {
+	$('label.checkbox-inline input').each(function (index) {
+		stopPlayingSound($(this));
+		$(this).removeClass('checked');
+		$(this).attr('checked', false);
+	});
+}
+
+function stopPlayingAllOtherSounds(inCheckbox) {
+	$('label.checkbox-inline input').each(function (index) {
+		if ($(this).attr('value') == inCheckbox.attr('value')) {
+			console.log('SKIP', inCheckbox.attr('value'));
+		} else {
+			console.log('do not skip', inCheckbox.attr('value'), $(this).attr('value'))
+			stopPlayingSound($(this));
+			$(this).removeClass('checked');
+			$(this).attr('checked', false);
+		}
+	});
+}
+
 
 // check the status of the SW
 if ('serviceWorker' in navigator) {
 	if (navigator.serviceWorker.controller) {
-		console.log('SW controller');
+		$('#loadingStatus').text('SW controller');
 
 		// as soon as the SW is ready, ask it to update
 		navigator.serviceWorker.ready.then(function(registration) {
-			console.log('calling update');
+			$('#workerStatus').text('calling update');
 			registration.update().then(function() {
-				console.log('updated');
+				$('#workerStatus').text('updated');
 			}).catch(function (e) {
-				console.log('update failed', e);
+				$('#workerStatus').text('update failed', e);
 			})
 
-			console.log('called update');
+			$('#workerStatus').text('called update');
 		});
 	} else {
-		console.log('NO CONTROLLER');
+		$('#workerStatus').text('NO CONTROLLER');
 	}
 } else {
-	console.log('NO SERVICEWORKERS');
+	$('#workerStatus').text('NO SERVICEWORKERS');
 }
 
 $(document).ready(function() {
 	// load all the sounds first
 	loadAllSounds();
 
+	// halt button stops playing all sounds
+	$('#halt').click(function (e) {
+		stopPlayingAllSounds();
+	});
+
 	// respond to a checkbox event either by starting or stopping sound
 	$(document).on('change', 'input:checkbox', function (e) {
 		$(this).toggleClass('checked');
 
 		if ($(this).hasClass('checked')) {
+			stopPlayingAllOtherSounds($(this));
+			console.log('CHECKED', $(this));
 			startPlayingSound($(this));
 		} else {
+			console.log('UNCHECKED', $(this));
 			stopPlayingSound($(this));
 		}
 	});

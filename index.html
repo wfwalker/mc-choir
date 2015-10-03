@@ -27,7 +27,7 @@
 	<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<img src='./chorister.png'>
+				<center><img src='./chorister.png'></center>
 
 				<div class="modal-body">
 					<p id='loadingStatus'></p>
@@ -36,6 +36,8 @@
 						<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
 						</div>
 					</div>
+
+					<p id='workerStatus'></p>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -66,11 +68,9 @@
 	<!-- Begin page content -->
     <div class="container">
 
-		<div class="checkbox">
-			<label>
-				<input id='play' type="checkbox"> Play <span id='soundInfo'></span>
-			</label>
-		</div>
+		<button id='halt' class='btn btn-default btn-lrg' type="button">Stop</button>
+
+		<p></p>
 
 		<!-- Tab panes -->
 		<div class="tab-content">
