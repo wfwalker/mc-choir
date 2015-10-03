@@ -1,0 +1,137 @@
+<html>
+
+<head>
+	<title>Musique Concr&egrave;te Choir</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- apple web metadata -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- twitter card metadata -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wfwalker" />
+    <meta name="twitter:title" content="Music Concrete Choir" />
+    <meta name="twitter:description" content="Web client for participating in a musique concrete choir" />
+
+    <!-- w3c app manifest and favicon -->
+
+	<link rel="manifest" href="w3c-manifest.json">
+	<link rel="shortcut icon" href="./chorister.png">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+</head>
+
+<body>
+	<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<center><img src='./chorister.png'></center>
+
+				<div class="modal-body">
+					<p id='loadingStatus'></p>
+
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
+						</div>
+					</div>
+
+					<p id='workerStatus'></p>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img src='./chorister.png' height='24px'></a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<!-- Begin page content -->
+    <div class="container">
+
+		<button id='halt' class='btn btn-default btn-lrg' type="button">Stop</button>
+
+		<p></p>
+
+		<!-- Tab panes -->
+			<span class="heart" id="heart">
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla5-Pizz.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">1
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla6-Arp.mp3' data-exclusive='false' data-rates='0.5,0.75,1' autocomplete="off">2
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla7-WoodKnock.mp3' data-exclusive='false' data-rates='0.75,1' autocomplete="off">3
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla8-Trill-Bartok.mp3' data-exclusive='false' data-rates='0.25,1' autocomplete="off">4
+				</label>
+			</span>
+			<span class="eye" id="eye">
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-mel1.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">1
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-mel2.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">2
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-mel3.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">3
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-perc.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">4
+				</label>
+			</span>
+			<span class="tree" id="tree">
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla1-Harmonics.mp3' data-exclusive='false' data-rates='1,2' autocomplete="off">1
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla2-Gliss.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">2
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla3-Melody1.mp3' data-exclusive='false' data-rates='1,2' autocomplete="off">3
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./Vla4-Melody2.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">4
+				</label>
+			</span>
+			<span class="leaf" id="leaf">
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-shout.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">1
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-stabs.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">2
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-sust1.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">3
+				</label>
+				<label class="checkbox-inline well">
+					<input type="checkbox" name="sounds" value='./org-sust1.mp3' data-exclusive='false' data-rates='0.5,1' autocomplete="off">4
+				</label>
+			</span>
+	</div>
+
+	<script src="js/jquery.min.js" type="text/javascript"></script>	
+	<script src="js/bootstrap.js" type="text/javascript"></script>	
+	<script src="js/app.js" type="text/javascript"></script>	
+	<script src="js/offline-manager.js"></script>
+
+</body>
+
+</html>
