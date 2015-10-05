@@ -127,9 +127,13 @@ function startPlayingSound(activeRadioButton) {
 			newSoundSource.buffer = gReversedSounds[soundURL];
 		}
 
+		// compute random offset
+		var offset = Math.random() * newSoundSource.buffer.duration;
+		console.log('duration', newSoundSource.buffer.duration, 'offset', offset);
+
 		newSoundSource.loop = true;
 		newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
-		newSoundSource.start(0);
+		newSoundSource.start(0, offset);
 		gSoundSources[soundURL] = newSoundSource;
 		console.log('STARTED', soundURL, gSoundSources[soundURL]);
 		$('#soundInfo').text(soundURL + ', ' + rates + ' -> ' + randomRate);
@@ -173,7 +177,6 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 	});
 }
 
-
 // check the status of the SW
 if ('serviceWorker' in navigator) {
 	if (navigator.serviceWorker.controller) {
@@ -204,6 +207,30 @@ $(document).ready(function() {
 	// halt button stops playing all sounds
 	$('#halt').click(function (e) {
 		stopPlayingAllSounds();
+	});
+
+	// rate button changes playback rate
+	$('#rate').click(function (e) {
+		for (url in gSoundSources) {
+			var theInput = $('input[value="' + url + '"]');
+			var rates = (theInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
+			var randomRate = rates[Math.floor(Math.random() * rates.length)];
+
+			if (gSoundSources[url]) {
+				gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
+				console.log(url, rates, randomRate);
+			} else {
+				console.log(url, 'not playing');
+			}
+		}
+	});
+
+	// reverse button plays sounds backward
+	$('#reverse').click(function (e) {
+		for (url in gSoundSources) {
+			var theInput = $('input[value="' + url + '"]');
+			console.log(url, theInput);
+		}
 	});
 
 	// respond to a checkbox event either by starting or stopping sound
