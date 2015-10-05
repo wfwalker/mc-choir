@@ -127,9 +127,13 @@ function startPlayingSound(activeRadioButton) {
 			newSoundSource.buffer = gReversedSounds[soundURL];
 		}
 
+		// compute random offset
+		var offset = Math.random() * newSoundSource.buffer.duration;
+		console.log('duration', newSoundSource.duration, 'offset', offset);
+
 		newSoundSource.loop = true;
 		newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
-		newSoundSource.start(0);
+		newSoundSource.start(0, offset);
 		gSoundSources[soundURL] = newSoundSource;
 		console.log('STARTED', soundURL, gSoundSources[soundURL]);
 		$('#soundInfo').text(soundURL + ', ' + rates + ' -> ' + randomRate);
