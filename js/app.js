@@ -129,7 +129,7 @@ function startPlayingSound(activeRadioButton) {
 
 		// compute random offset
 		var offset = Math.random() * newSoundSource.buffer.duration;
-		console.log('duration', newSoundSource.duration, 'offset', offset);
+		console.log('duration', newSoundSource.buffer.duration, 'offset', offset);
 
 		newSoundSource.loop = true;
 		newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
