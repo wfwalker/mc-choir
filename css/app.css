@@ -8,7 +8,6 @@ body {
 }
 
 label.checkbox-inline {
-	padding: 2px 20px 10px 23px;
 	font-size: 72pt;
 }
 
@@ -16,30 +15,34 @@ label.checkbox-inline {
 	color: #D9534F;	
 }
 
-.heart label.checkbox-inline {
+.heart {
 	background-color: #D9534F;
+	border: solid 1px white;
 }
 
 .glyphicon-tree-deciduous {
 	color: #5CB85C;
 }
 
-.tree label.checkbox-inline {
+.tree {
 	background-color: #5CB85C;
+	border: solid 1px white;
 }
 
 .glyphicon-eye-open {
 	color: #428BCA;
 }
 
-.eye label.checkbox-inline {
+.eye {
 	background-color: #428BCA;
+	border: solid 1px white;
 }
 
 .glyphicon-leaf {
 	color: #F0AD4E;
 }
 
-.leaf label.checkbox-inline {
+.leaf {
 	background-color: #F0AD4E;
+	border: solid 1px white;
 }
