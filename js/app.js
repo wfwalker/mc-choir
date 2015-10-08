@@ -45,6 +45,7 @@ function getArrayBuffer(url) {
 }
 
 function createReverseBuffer(inForwardBuffer) {
+	console.time('reverse' + inForwardBuffer.length);
 	var forwardChannelData = inForwardBuffer.getChannelData(0);
 	var reverseBuffer = gAudioContext.createBuffer(1, inForwardBuffer.length, inForwardBuffer.sampleRate);
 	var reverseChannelData = reverseBuffer.getChannelData(0);
@@ -54,6 +55,7 @@ function createReverseBuffer(inForwardBuffer) {
 		reverseChannelData[i] = forwardChannelData[--j];
 	}
 
+	console.timeEnd('reverse' + inForwardBuffer.length);
 	return reverseBuffer;
 }
 
@@ -67,20 +69,22 @@ function decodeAudioDataAsync(data){
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 		gSoundProgress++;
-		$('#loadingStatus').text('LOADED ' + inSoundDataURL);
 		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
+		console.time('decode' + inSoundDataURL);
+		$('#loadingStatus').text('DECODE ' + inSoundDataURL);
 	    return decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
+		console.timeEnd('decode' + inSoundDataURL);
 		gSounds[inSoundDataURL] = decodedBuffer;
 
 		gSoundProgress++;
-		$('#loadingStatus').text('DECODED ' + inSoundDataURL);
 		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 
+		$('#loadingStatus').text('REVERSE ' + inSoundDataURL);
 		gReversedSounds[inSoundDataURL] = createReverseBuffer(decodedBuffer);
 
 		gSoundProgress++;
-		$('#loadingStatus').text('REVERSED ' + inSoundDataURL);
+		$('#loadingStatus').text('DONE ' + inSoundDataURL);
 		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
 	}).catch(function(e) {
 		console.log('ERROR', e);
@@ -178,24 +182,24 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 // check the status of the SW
 if ('serviceWorker' in navigator) {
 	if (navigator.serviceWorker.controller) {
-		$('#loadingStatus').text('SW controller');
+		$('#loadingStatus').text('supports offline cache');
 
 		// as soon as the SW is ready, ask it to update
 		navigator.serviceWorker.ready.then(function(registration) {
-			$('#workerStatus').text('calling update');
+			$('#workerStatus').text('updating offline cache');
 			registration.update().then(function() {
-				$('#workerStatus').text('updated');
+				$('#workerStatus').text('offline cache updated');
 			}).catch(function (e) {
 				$('#workerStatus').text('update failed', e);
 			})
 
-			$('#workerStatus').text('called update');
+			$('#workerStatus').text('waiting for offline cache');
 		});
 	} else {
-		$('#workerStatus').text('NO CONTROLLER');
+		$('#workerStatus').text('trouble with offline cache');
 	}
 } else {
-	$('#workerStatus').text('NO SERVICEWORKERS');
+	$('#workerStatus').text('no offline cache');
 }
 
 $(document).ready(function() {
