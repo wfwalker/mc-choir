@@ -46,14 +46,12 @@ function getArrayBuffer(url) {
 
 function createReverseBuffer(inForwardBuffer) {
 	var forwardChannelData = inForwardBuffer.getChannelData(0);
-	var forwardArray = Array.prototype.slice.call( forwardChannelData );
-	Array.prototype.reverse.call(forwardArray);	
-
 	var reverseBuffer = gAudioContext.createBuffer(1, inForwardBuffer.length, inForwardBuffer.sampleRate);
 	var reverseChannelData = reverseBuffer.getChannelData(0);
+	var j = inForwardBuffer.length;
 
-	for (i = 0; i < reverseBuffer.length; i++) {
-		reverseChannelData[i] = forwardArray[i];
+	for (var i = 0; i < reverseBuffer.length; i++) {
+		reverseChannelData[i] = forwardChannelData[--j];
 	}
 
 	return reverseBuffer;
