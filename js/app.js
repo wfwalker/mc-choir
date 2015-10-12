@@ -173,11 +173,7 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 	});
 }
 
-// REDIRECT to HTTPS!
-var host = "wfwalker.github.io";
-if ((host == window.location.host) && (window.location.protocol != "https:")) {
-	window.location.protocol = "https";
-} else {
+function updateServiceWorker() {
 	// check the status of the SW
 	if ('serviceWorker' in navigator) {
 		if (navigator.serviceWorker.controller) {
@@ -199,7 +195,15 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 		}
 	} else {
 		$('#workerStatus').text('no offline cache');
-	}
+	}	
+}
+
+// REDIRECT to HTTPS!
+var host = "wfwalker.github.io";
+if ((host == window.location.host) && (window.location.protocol != "https:")) {
+	window.location.protocol = "https";
+} else {
+	updateServiceWorker();
 
 	$(document).ready(function() {
 		// load all the sounds first
