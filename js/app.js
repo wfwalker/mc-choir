@@ -177,7 +177,6 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 var host = "wfwalker.github.io";
 if ((host == window.location.host) && (window.location.protocol != "https:")) {
 	window.location.protocol = "https";
-	window.location.reload();
 } else {
 	// check the status of the SW
 	if ('serviceWorker' in navigator) {
