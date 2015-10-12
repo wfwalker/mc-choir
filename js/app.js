@@ -1,11 +1,5 @@
 // app.js
 
-// REDIRECT to HTTPS!
-var host = "wfwalker.github.io";
-if ((host == window.location.host) && (window.location.protocol != "https:")) {
-	window.location.protocol = "https";
-}
-
 window.AudioContext = window.AudioContext||window.webkitAudioContext;
 var gAudioContext = new AudioContext();
 var gSoundSources = {};
@@ -179,78 +173,86 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 	});
 }
 
-// check the status of the SW
-if ('serviceWorker' in navigator) {
-	if (navigator.serviceWorker.controller) {
-		$('#loadingStatus').text('supports offline cache');
-
-		// as soon as the SW is ready, ask it to update
-		navigator.serviceWorker.ready.then(function(registration) {
-			$('#workerStatus').text('updating offline cache');
-			registration.update().then(function() {
-				$('#workerStatus').text('offline cache updated');
-			}).catch(function (e) {
-				$('#workerStatus').text('update failed', e);
-			})
-
-			$('#workerStatus').text('waiting for offline cache');
-		});
-	} else {
-		$('#workerStatus').text('trouble with offline cache');
-	}
+// REDIRECT to HTTPS!
+var host = "wfwalker.github.io";
+if ((host == window.location.host) && (window.location.protocol != "https:")) {
+	window.location.protocol = "https";
+	window.location.reload();
 } else {
-	$('#workerStatus').text('no offline cache');
+	// check the status of the SW
+	if ('serviceWorker' in navigator) {
+		if (navigator.serviceWorker.controller) {
+			$('#loadingStatus').text('supports offline cache');
+
+			// as soon as the SW is ready, ask it to update
+			navigator.serviceWorker.ready.then(function(registration) {
+				$('#workerStatus').text('updating offline cache');
+				registration.update().then(function() {
+					$('#workerStatus').text('offline cache updated');
+				}).catch(function (e) {
+					$('#workerStatus').text('update failed', e);
+				})
+
+				$('#workerStatus').text('waiting for offline cache');
+			});
+		} else {
+			$('#workerStatus').text('trouble with offline cache');
+		}
+	} else {
+		$('#workerStatus').text('no offline cache');
+	}
+
+	$(document).ready(function() {
+		// load all the sounds first
+		loadAllSounds();
+
+		// halt button stops playing all sounds
+		$('#halt').click(function (e) {
+			stopPlayingAllSounds();
+		});
+
+		// rate button changes playback rate
+		$('#rate').click(function (e) {
+			for (url in gSoundSources) {
+				var theInput = $('input[value="' + url + '"]');
+				var rates = (theInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
+				var randomRate = rates[Math.floor(Math.random() * rates.length)];
+
+				if (gSoundSources[url]) {
+					gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
+					console.log(url, rates, randomRate);
+				} else {
+					console.log(url, 'not playing');
+				}
+			}
+		});
+
+		// reverse button plays sounds backward
+		$('#reverse').click(function (e) {
+			for (url in gSoundSources) {
+				var theInput = $('input[value="' + url + '"]');
+				console.log(url, theInput);
+			}
+		});
+
+		// respond to a checkbox event either by starting or stopping sound
+		$(document).on('change', 'input:checkbox', function (e) {
+			$(this).toggleClass('checked');
+
+			if ($(this).hasClass('checked')) {
+				if ($(this).data('exclusive')) {
+					console.log('exclusive, stop playing other sounds');
+					stopPlayingAllOtherSounds($(this));
+				} else {
+					console.log('not exclusive, do not stop other sounds');
+				}
+				console.log('CHECKED', $(this));
+				startPlayingSound($(this));
+			} else {
+				console.log('UNCHECKED', $(this));
+				stopPlayingSound($(this));
+			}
+		});
+	});
 }
 
-$(document).ready(function() {
-	// load all the sounds first
-	loadAllSounds();
-
-	// halt button stops playing all sounds
-	$('#halt').click(function (e) {
-		stopPlayingAllSounds();
-	});
-
-	// rate button changes playback rate
-	$('#rate').click(function (e) {
-		for (url in gSoundSources) {
-			var theInput = $('input[value="' + url + '"]');
-			var rates = (theInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
-			var randomRate = rates[Math.floor(Math.random() * rates.length)];
-
-			if (gSoundSources[url]) {
-				gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
-				console.log(url, rates, randomRate);
-			} else {
-				console.log(url, 'not playing');
-			}
-		}
-	});
-
-	// reverse button plays sounds backward
-	$('#reverse').click(function (e) {
-		for (url in gSoundSources) {
-			var theInput = $('input[value="' + url + '"]');
-			console.log(url, theInput);
-		}
-	});
-
-	// respond to a checkbox event either by starting or stopping sound
-	$(document).on('change', 'input:checkbox', function (e) {
-		$(this).toggleClass('checked');
-
-		if ($(this).hasClass('checked')) {
-			if ($(this).data('exclusive')) {
-				console.log('exclusive, stop playing other sounds');
-				stopPlayingAllOtherSounds($(this));
-			} else {
-				console.log('not exclusive, do not stop other sounds');
-			}
-			console.log('CHECKED', $(this));
-			startPlayingSound($(this));
-		} else {
-			console.log('UNCHECKED', $(this));
-			stopPlayingSound($(this));
-		}
-	});
-});
