@@ -9,6 +9,7 @@ body {
 
 label.checkbox-inline {
 	font-size: 72pt;
+	width: 100%;
 }
 
 .glyphicon-heart {
