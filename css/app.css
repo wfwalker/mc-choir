@@ -47,3 +47,23 @@ label.checkbox-inline {
 	background-color: #F0AD4E;
 	border: solid 1px white;
 }
+
+
+/* DISABLE NAVBAR COLLAPSE */
+/* http://stackoverflow.com/questions/23535289/bootstrap-3-disable-navbar-collapse */
+
+.navbar-brand {
+	padding: 15px 35px;
+}
+
+.navbar-collapse.collapse {
+	display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+	float: left !important;
+}
+
+.navbar-right {
+	float: right!important;
+}
