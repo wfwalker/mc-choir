@@ -48,6 +48,10 @@ label.checkbox-inline {
 	border: solid 1px white;
 }
 
+.biggest {
+	font-size: 18pt;
+}
+
 
 /* DISABLE NAVBAR COLLAPSE */
 /* http://stackoverflow.com/questions/23535289/bootstrap-3-disable-navbar-collapse */
