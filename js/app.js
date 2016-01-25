@@ -209,6 +209,8 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 		// load all the sounds first
 		loadAllSounds();
 
+		// TODO: graceful exit if Web Audio API is absent
+
 		// halt button stops playing all sounds
 		$('#halt').click(function (e) {
 			stopPlayingAllSounds();

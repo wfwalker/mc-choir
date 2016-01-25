@@ -21,13 +21,13 @@
 // for an example of how you can register this script and handle various service worker events.
 
 /* eslint-env worker, serviceworker */
-/* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren */
+/* eslint-disable no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren */
 'use strict';
 
 
 
 /* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["Vla1-HarmonicsX.mp3","8936b79af5a725b2741c48607c2864d8"],["Vla2-GlissX.mp3","5cb51b773e74f772c81c496075d76e84"],["Vla3-Melody1X.mp3","cffe3e6b15a4860bf86631359ba1862a"],["Vla4-Melody2X.mp3","637b245c7bf553bc27b0112322265699"],["Vla5-PizzX.mp3","e020e1f66e1447e90f32e6178e10d14f"],["Vla6-ArpX.mp3","5b3f8bb7113ae1e0f554f97260eb7a78"],["Vla7-WoodKnockX.mp3","e8080e70d4bb33c4b6890db95bf9f312"],["Vla8-Trill-SnapX.mp3","828c56d8bc80c2dd34d317c675ab9482"],["cards.html","8ef0a8879331d577c346b04a13230d9b"],["chorister.png","67242b01ebc2244b7c8b9b02474df08f"],["css/app.css","f9c303e9fb4fe7ac6126a33d977d3b1c"],["css/bootstrap.css","4113f7aa3f6b14437817006013a262f9"],["fonts/glyphicons-halflings-regular.eot","2469ccfe446daa49d5c1446732d1436d"],["fonts/glyphicons-halflings-regular.svg","3b31e1de93290779334c84c9b07c6eed"],["fonts/glyphicons-halflings-regular.ttf","aa9c7490c2fd52cb96c729753cc4f2d5"],["fonts/glyphicons-halflings-regular.woff","7c4cbe928205c888831ba76548563ca3"],["index.html","cc6adcbe3c51c4b6bee34d60521afb24"],["js/app.js","66fba2728c04fe440679accea8d95729"],["js/birdSongPlayer.js","3d0fce0ac6091644d7f19c5051854c1a"],["js/bootstrap.js","f91d38466de6410297c6dcd8287abbca"],["js/jquery.min.js","397754ba49e9e0cf4e7c190da78dda05"],["js/offline-manager.js","28bd78ca4fcf8ae2b562c51a1cd2f5d3"],["js/placeTimeBirdSongs.js","0c7aafbe78901d93209c3f15c538d235"],["laptop.html","71fc1e408626628bc8d0847d8c5e55b4"],["org-arpeggio.mp3","60912bbbc0ee7470ce2fde9714bac0d6"],["org-chordrhythm.mp3","ea9c9fee1f048a55c546d449528b7edf"],["org-highmelodic.mp3","3fbf123551a35bc98744f7756ceaa9bb"],["org-lowmelodic.mp3","df58a62b813b58a7595c29ee97636208"],["org-mel1.mp3","4f3cffc69aa070cdb6a7c3fedfd06ef4"],["org-perc.mp3","d2661a94122d37a343999122d1044e95"],["org-shout.mp3","6dde1c84a9db08f85133f39e483d8f0d"],["org-stabs.mp3","736ba4bd94370d6ba471ac5fd9982fcc"],["org-sust1.mp3","adf468eb323277babac6e90c4b1e853e"],["saw440.mp3","e6b6ad83d622db8e8ecf11977b05a106"],["sqr440.mp3","c1e97f14bc9c84951f9f7a3b2265bc87"]];
+var PrecacheConfig = [["Vla1-Harmonics.mp3","f6871c737e94fe7c81b7a079d592f4cc"],["Vla1-HarmonicsX.mp3","8936b79af5a725b2741c48607c2864d8"],["Vla2-Gliss.mp3","0e13f6704ea992912037345c505048ac"],["Vla2-GlissX.mp3","5cb51b773e74f772c81c496075d76e84"],["Vla3-Melody1.mp3","8a81c4b13bbd5b3668f7231572d0f383"],["Vla3-Melody1X.mp3","cffe3e6b15a4860bf86631359ba1862a"],["Vla4-Melody2.mp3","08607f0582d4cc8bb5b9e50e7d514284"],["Vla4-Melody2X.mp3","637b245c7bf553bc27b0112322265699"],["Vla5-Pizz.mp3","d17e808478212c346e1b057a5b938ae5"],["Vla5-PizzX.mp3","e020e1f66e1447e90f32e6178e10d14f"],["Vla6-Arp.mp3","2a2d3ccbda20ac529006da4a068fd79b"],["Vla6-ArpX.mp3","5b3f8bb7113ae1e0f554f97260eb7a78"],["Vla7-WoodKnock.mp3","8adfb7b632053c48093928244905f0bb"],["Vla7-WoodKnockX.mp3","e8080e70d4bb33c4b6890db95bf9f312"],["Vla8-Trill-Bartok.mp3","3cd75c652dab8c06a882b66203a45caa"],["Vla8-Trill-SnapX.mp3","828c56d8bc80c2dd34d317c675ab9482"],["cards.html","8ef0a8879331d577c346b04a13230d9b"],["chorister.png","67242b01ebc2244b7c8b9b02474df08f"],["css/app.css","cfee58b8ba23cd3ea44206e916ddf7e7"],["css/bootstrap.css","4113f7aa3f6b14437817006013a262f9"],["fonts/glyphicons-halflings-regular.eot","2469ccfe446daa49d5c1446732d1436d"],["fonts/glyphicons-halflings-regular.svg","3b31e1de93290779334c84c9b07c6eed"],["fonts/glyphicons-halflings-regular.ttf","aa9c7490c2fd52cb96c729753cc4f2d5"],["fonts/glyphicons-halflings-regular.woff","7c4cbe928205c888831ba76548563ca3"],["index.html","8e01ac6d83cf6ae2072d6ca61de56148"],["js/app.js","a7dcf47d5d16f31d30da8425ad9a6e02"],["js/birdSongPlayer.js","3d0fce0ac6091644d7f19c5051854c1a"],["js/bootstrap.js","f91d38466de6410297c6dcd8287abbca"],["js/jquery.min.js","397754ba49e9e0cf4e7c190da78dda05"],["js/offline-manager.js","28bd78ca4fcf8ae2b562c51a1cd2f5d3"],["js/placeTimeBirdSongs.js","0c7aafbe78901d93209c3f15c538d235"],["js/server.js","d04e609ae7df5a50ab36cfba9fc71952"],["laptop.html","71fc1e408626628bc8d0847d8c5e55b4"],["org-arpeggio.mp3","60912bbbc0ee7470ce2fde9714bac0d6"],["org-chordrhythm.mp3","ea9c9fee1f048a55c546d449528b7edf"],["org-highmelodic.mp3","3fbf123551a35bc98744f7756ceaa9bb"],["org-lowmelodic.mp3","df58a62b813b58a7595c29ee97636208"],["org-mel1.mp3","4f3cffc69aa070cdb6a7c3fedfd06ef4"],["org-mel2.mp3","d9b647574c365e0bcd3e1fcd2eded442"],["org-mel3.mp3","afab0537c4ebd90f3328a0374bb9bb67"],["org-perc.mp3","d2661a94122d37a343999122d1044e95"],["org-shout.mp3","6dde1c84a9db08f85133f39e483d8f0d"],["org-stabs.mp3","736ba4bd94370d6ba471ac5fd9982fcc"],["org-sust1.mp3","adf468eb323277babac6e90c4b1e853e"],["saw440.mp3","e6b6ad83d622db8e8ecf11977b05a106"],["sqr440.mp3","c1e97f14bc9c84951f9f7a3b2265bc87"],["tapereel.png","84d502e8c5cd68e81273b5aa211b7ea1"]];
 /* eslint-enable quotes, comma-spacing */
 var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
 
@@ -44,17 +44,7 @@ var addDirectoryIndex = function (originalUrl, index) {
     return url.toString();
   };
 
-var getCacheBustedUrl = function (url, now) {
-    now = now || Date.now();
-
-    var urlWithCacheBusting = new URL(url);
-    urlWithCacheBusting.search += (urlWithCacheBusting.search ? '&' : '') + 'sw-precache=' + now;
-
-    return urlWithCacheBusting.toString();
-  };
-
-var populateCurrentCacheNames = function (precacheConfig,
-    cacheNamePrefix, baseUrl) {
+var populateCurrentCacheNames = function (precacheConfig, cacheNamePrefix, baseUrl) {
     var absoluteUrlToCacheName = {};
     var currentCacheNamesToAbsoluteUrl = {};
 
@@ -71,8 +61,7 @@ var populateCurrentCacheNames = function (precacheConfig,
     };
   };
 
-var stripIgnoredUrlParameters = function (originalUrl,
-    ignoreUrlParametersMatching) {
+var stripIgnoredUrlParameters = function (originalUrl, ignoreUrlParametersMatching) {
     var url = new URL(originalUrl);
 
     url.search = url.search.slice(1) // Exclude initial '?'
@@ -117,14 +106,20 @@ self.addEventListener('install', function(event) {
         Object.keys(CurrentCacheNamesToAbsoluteUrl).filter(function(cacheName) {
           return allCacheNames.indexOf(cacheName) === -1;
         }).map(function(cacheName) {
-          var urlWithCacheBusting = getCacheBustedUrl(CurrentCacheNamesToAbsoluteUrl[cacheName],
-            now);
+          var url = new URL(CurrentCacheNamesToAbsoluteUrl[cacheName]);
+          // Put in a cache-busting parameter to ensure we're caching a fresh response.
+          if (url.search) {
+            url.search += '&';
+          }
+          url.search += 'sw-precache=' + now;
+          var urlWithCacheBusting = url.toString();
 
+          console.log('Adding URL "%s" to cache named "%s"', urlWithCacheBusting, cacheName);
           return caches.open(cacheName).then(function(cache) {
             var request = new Request(urlWithCacheBusting, {credentials: 'same-origin'});
-            return fetch(request).then(function(response) {
+            return fetch(request.clone()).then(function(response) {
               if (response.ok) {
-                return cache.put(CurrentCacheNamesToAbsoluteUrl[cacheName], response);
+                return cache.put(request, response);
               }
 
               console.error('Request for %s returned a response with status %d, so not attempting to cache it.',
@@ -140,6 +135,7 @@ self.addEventListener('install', function(event) {
             return cacheName.indexOf(CacheNamePrefix) === 0 &&
                    !(cacheName in CurrentCacheNamesToAbsoluteUrl);
           }).map(function(cacheName) {
+            console.log('Deleting out-of-date cache "%s"', cacheName);
             return caches.delete(cacheName);
           })
         );
@@ -189,33 +185,21 @@ self.addEventListener('fetch', function(event) {
       cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
     }
 
-    var navigateFallback = '';
-    // Ideally, this would check for event.request.mode === 'navigate', but that is not widely
-    // supported yet:
-    // https://code.google.com/p/chromium/issues/detail?id=540967
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1209081
-    if (!cacheName && navigateFallback && event.request.headers.has('accept') &&
-        event.request.headers.get('accept').includes('text/html')) {
-      var navigateFallbackUrl = new URL(navigateFallback, self.location);
-      cacheName = AbsoluteUrlToCacheName[navigateFallbackUrl.toString()];
-    }
-
     if (cacheName) {
       event.respondWith(
-        // Rely on the fact that each cache we manage should only have one entry, and return that.
+        // We can't call cache.match(event.request) since the entry in the cache will contain the
+        // cache-busting parameter. Instead, rely on the fact that each cache should only have one
+        // entry, and return that.
         caches.open(cacheName).then(function(cache) {
           return cache.keys().then(function(keys) {
             return cache.match(keys[0]).then(function(response) {
-              if (response) {
-                return response;
-              }
-              // If for some reason the response was deleted from the cache,
-              // raise and exception and fall back to the fetch() triggered in the catch().
-              throw Error('The cache ' + cacheName + ' is empty.');
+              return response || fetch(event.request).catch(function(e) {
+                console.error('Fetch for "%s" failed: %O', urlWithoutIgnoredParameters, e);
+              });
             });
           });
         }).catch(function(e) {
-          console.warn('Couldn\'t serve response for "%s" from cache: %O', event.request.url, e);
+          console.error('Couldn\'t serve response for "%s" from cache: %O', urlWithoutIgnoredParameters, e);
           return fetch(event.request);
         })
       );
