@@ -206,8 +206,13 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 	updateServiceWorker();
 
 	$(document).ready(function() {
-		// load all the sounds first
-		loadAllSounds();
+		if (window.AudioContext||window.webkitAudioContext) {
+			// load all the sounds first
+			loadAllSounds();
+		} else {
+			$('#missingWebAudioModal').modal('show');
+			console.log('No Web Audio API');
+		}
 
 		// TODO: graceful exit if Web Audio API is absent
 
