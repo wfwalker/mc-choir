@@ -18,7 +18,8 @@ label.checkbox-inline {
 
 .heart {
 	background-color: #D9534F;
-	border: solid 1px white;
+	border: solid 3px white;
+	border-radius: 10px;
 }
 
 .glyphicon-tree-deciduous {
@@ -27,7 +28,8 @@ label.checkbox-inline {
 
 .tree {
 	background-color: #5CB85C;
-	border: solid 1px white;
+	border: solid 3px white;
+	border-radius: 10px;
 }
 
 .glyphicon-eye-open {
@@ -36,7 +38,8 @@ label.checkbox-inline {
 
 .eye {
 	background-color: #428BCA;
-	border: solid 1px white;
+	border: solid 3px white;
+	border-radius: 10px;
 }
 
 .glyphicon-leaf {
@@ -45,7 +48,8 @@ label.checkbox-inline {
 
 .leaf {
 	background-color: #F0AD4E;
-	border: solid 1px white;
+	border: solid 3px white;
+	border-radius: 10px;
 }
 
 .biggest {
