@@ -37,7 +37,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '5cfd3784a665644f554a9142201a0c45efd62dc9';
+      return this.CACHE_PREFIX + 'd6d071b081c9153a4c18012c83af4c6961da4733';
     },
 
     // This is a list of resources that will be cached.
@@ -67,7 +67,7 @@
       './Vla8-Trill-SnapX.mp3', // 3c2baa572349c5d9eb383d9474e507234fc3c798
       './chorister.png', // 8165e80d894c7a8797da1480240d2cb3ce96117c
       './w3c-manifest.json', // ad464e342585e3d52ff2d973486c5310371a9f99
-      './css/app.css', // 617c8b1e263a4529eeb44e43f3830bf21d6f02ee
+      './css/app.css', // a7fadd7a1ed38b79748fc82aca088cd6694857f1
       './css/bootstrap.css', // cb0bed917662657e1dcc0ab7ec37deb042301441
       './fonts/glyphicons-halflings-regular.eot', // d53dff38dfb5c414015dfb31d30a473c95b50904
       './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
