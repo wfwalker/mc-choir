@@ -1,0 +1,12 @@
+{
+	"lang": "en",
+	"name": "MC Choir",
+	"start_url": "/index.html",
+	"display": "standalone",
+	"icons": [{
+		"src": "chorister.png",
+		"sizes": "300x300",
+		"type": "image/png"
+	}],
+	"orientation": "portrait"
+}
