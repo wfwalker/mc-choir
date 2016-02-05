@@ -173,38 +173,11 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 	});
 }
 
-function updateServiceWorker() {
-	// check the status of the SW
-	if ('serviceWorker' in navigator) {
-		if (navigator.serviceWorker.controller) {
-			$('#loadingStatus').text('supports offline cache');
-
-			// as soon as the SW is ready, ask it to update
-			navigator.serviceWorker.ready.then(function(registration) {
-				$('#workerStatus').text('updating offline cache');
-				registration.update().then(function() {
-					$('#workerStatus').text('offline cache updated');
-				}).catch(function (e) {
-					$('#workerStatus').text('update failed', e);
-				})
-
-				$('#workerStatus').text('waiting for offline cache');
-			});
-		} else {
-			$('#workerStatus').text('trouble with offline cache');
-		}
-	} else {
-		$('#workerStatus').text('no offline cache');
-	}	
-}
-
 // REDIRECT to HTTPS!
 var host = "wfwalker.github.io";
 if ((host == window.location.host) && (window.location.protocol != "https:")) {
 	window.location.protocol = "https";
 } else {
-	updateServiceWorker();
-
 	$(document).ready(function() {
 		if (window.AudioContext||window.webkitAudioContext) {
 			// load all the sounds first
