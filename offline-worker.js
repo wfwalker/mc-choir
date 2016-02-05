@@ -1,225 +1,168 @@
-/**
- * Copyright 2015 Google Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-// This generated service worker JavaScript will precache your site's resources.
-// The code needs to be saved in a .js file at the top-level of your site, and registered
-// from your pages in order to be used. See
-// https://github.com/googlechrome/sw-precache/blob/master/demo/app/js/service-worker-registration.js
-// for an example of how you can register this script and handle various service worker events.
-
-/* eslint-env worker, serviceworker */
-/* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren */
-'use strict';
+/* Any copyright is dedicated to the Public Domain.
+ * http://creativecommons.org/publicdomain/zero/1.0/ */
 
 
+(function (self) {
+  'use strict';
 
-/* eslint-disable quotes, comma-spacing */
-var PrecacheConfig = [["Vla1-HarmonicsX.mp3","8936b79af5a725b2741c48607c2864d8"],["Vla2-GlissX.mp3","5cb51b773e74f772c81c496075d76e84"],["Vla3-Melody1X.mp3","cffe3e6b15a4860bf86631359ba1862a"],["Vla4-Melody2X.mp3","637b245c7bf553bc27b0112322265699"],["Vla5-PizzX.mp3","e020e1f66e1447e90f32e6178e10d14f"],["Vla6-ArpX.mp3","5b3f8bb7113ae1e0f554f97260eb7a78"],["Vla7-WoodKnockX.mp3","e8080e70d4bb33c4b6890db95bf9f312"],["Vla8-Trill-SnapX.mp3","828c56d8bc80c2dd34d317c675ab9482"],["cards.html","8ef0a8879331d577c346b04a13230d9b"],["chorister.png","67242b01ebc2244b7c8b9b02474df08f"],["css/app.css","cfee58b8ba23cd3ea44206e916ddf7e7"],["css/bootstrap.css","4113f7aa3f6b14437817006013a262f9"],["fonts/glyphicons-halflings-regular.eot","2469ccfe446daa49d5c1446732d1436d"],["fonts/glyphicons-halflings-regular.svg","3b31e1de93290779334c84c9b07c6eed"],["fonts/glyphicons-halflings-regular.ttf","aa9c7490c2fd52cb96c729753cc4f2d5"],["fonts/glyphicons-halflings-regular.woff","7c4cbe928205c888831ba76548563ca3"],["index.html","b9a5c47a7eb1a5d4ccd574e39894d6e5"],["js/app.js","af227b5c00df6babaa3f4447d7d6f763"],["js/birdSongPlayer.js","3d0fce0ac6091644d7f19c5051854c1a"],["js/bootstrap.js","f91d38466de6410297c6dcd8287abbca"],["js/jquery.min.js","397754ba49e9e0cf4e7c190da78dda05"],["js/offline-manager.js","28bd78ca4fcf8ae2b562c51a1cd2f5d3"],["js/placeTimeBirdSongs.js","0c7aafbe78901d93209c3f15c538d235"],["laptop.html","71fc1e408626628bc8d0847d8c5e55b4"],["org-arpeggio.mp3","60912bbbc0ee7470ce2fde9714bac0d6"],["org-chordrhythm.mp3","ea9c9fee1f048a55c546d449528b7edf"],["org-highmelodic.mp3","3fbf123551a35bc98744f7756ceaa9bb"],["org-lowmelodic.mp3","df58a62b813b58a7595c29ee97636208"],["org-mel1.mp3","4f3cffc69aa070cdb6a7c3fedfd06ef4"],["org-perc.mp3","d2661a94122d37a343999122d1044e95"],["org-shout.mp3","6dde1c84a9db08f85133f39e483d8f0d"],["org-stabs.mp3","736ba4bd94370d6ba471ac5fd9982fcc"],["org-sust1.mp3","adf468eb323277babac6e90c4b1e853e"],["saw440.mp3","e6b6ad83d622db8e8ecf11977b05a106"],["sqr440.mp3","c1e97f14bc9c84951f9f7a3b2265bc87"]];
-/* eslint-enable quotes, comma-spacing */
-var CacheNamePrefix = 'sw-precache-v1--' + (self.registration ? self.registration.scope : '') + '-';
-
-
-var IgnoreUrlParametersMatching = [/^utm_/];
-
-
-
-var addDirectoryIndex = function (originalUrl, index) {
-    var url = new URL(originalUrl);
-    if (url.pathname.slice(-1) === '/') {
-      url.pathname += index;
-    }
-    return url.toString();
-  };
-
-var getCacheBustedUrl = function (url, now) {
-    now = now || Date.now();
-
-    var urlWithCacheBusting = new URL(url);
-    urlWithCacheBusting.search += (urlWithCacheBusting.search ? '&' : '') + 'sw-precache=' + now;
-
-    return urlWithCacheBusting.toString();
-  };
-
-var populateCurrentCacheNames = function (precacheConfig,
-    cacheNamePrefix, baseUrl) {
-    var absoluteUrlToCacheName = {};
-    var currentCacheNamesToAbsoluteUrl = {};
-
-    precacheConfig.forEach(function(cacheOption) {
-      var absoluteUrl = new URL(cacheOption[0], baseUrl).toString();
-      var cacheName = cacheNamePrefix + absoluteUrl + '-' + cacheOption[1];
-      currentCacheNamesToAbsoluteUrl[cacheName] = absoluteUrl;
-      absoluteUrlToCacheName[absoluteUrl] = cacheName;
-    });
-
-    return {
-      absoluteUrlToCacheName: absoluteUrlToCacheName,
-      currentCacheNamesToAbsoluteUrl: currentCacheNamesToAbsoluteUrl
-    };
-  };
-
-var stripIgnoredUrlParameters = function (originalUrl,
-    ignoreUrlParametersMatching) {
-    var url = new URL(originalUrl);
-
-    url.search = url.search.slice(1) // Exclude initial '?'
-      .split('&') // Split into an array of 'key=value' strings
-      .map(function(kv) {
-        return kv.split('='); // Split each 'key=value' string into a [key, value] array
-      })
-      .filter(function(kv) {
-        return ignoreUrlParametersMatching.every(function(ignoredRegex) {
-          return !ignoredRegex.test(kv[0]); // Return true iff the key doesn't match any of the regexes.
-        });
-      })
-      .map(function(kv) {
-        return kv.join('='); // Join each [key, value] array into a 'key=value' string
-      })
-      .join('&'); // Join the array of 'key=value' strings into a string with '&' in between each
-
-    return url.toString();
-  };
-
-
-var mappings = populateCurrentCacheNames(PrecacheConfig, CacheNamePrefix, self.location);
-var AbsoluteUrlToCacheName = mappings.absoluteUrlToCacheName;
-var CurrentCacheNamesToAbsoluteUrl = mappings.currentCacheNamesToAbsoluteUrl;
-
-function deleteAllCaches() {
-  return caches.keys().then(function(cacheNames) {
-    return Promise.all(
-      cacheNames.map(function(cacheName) {
-        return caches.delete(cacheName);
-      })
-    );
+  // On install, cache resources and skip waiting so the worker won't
+  // wait for clients to be closed before becoming active.
+  self.addEventListener('install', function (event) {
+    event.waitUntil(oghliner.cacheResources().then(function () {
+      return self.skipWaiting();
+    }));
   });
-}
 
-self.addEventListener('install', function(event) {
-  var now = Date.now();
+  // On activation, delete old caches and start controlling the clients
+  // without waiting for them to reload.
+  self.addEventListener('activate', function (event) {
+    event.waitUntil(oghliner.clearOtherCaches().then(function () {
+      return self.clients.claim();
+    }));
+  });
 
-  event.waitUntil(
-    caches.keys().then(function(allCacheNames) {
-      return Promise.all(
-        Object.keys(CurrentCacheNamesToAbsoluteUrl).filter(function(cacheName) {
-          return allCacheNames.indexOf(cacheName) === -1;
-        }).map(function(cacheName) {
-          var urlWithCacheBusting = getCacheBustedUrl(CurrentCacheNamesToAbsoluteUrl[cacheName],
-            now);
+  // Retrieves the request following oghliner strategy.
+  self.addEventListener('fetch', function (event) {
+    if (event.request.method === 'GET') {
+      event.respondWith(oghliner.get(event.request));
+    } else {
+      event.respondWith(self.fetch(event.request));
+    }
+  });
 
-          return caches.open(cacheName).then(function(cache) {
-            var request = new Request(urlWithCacheBusting, {credentials: 'same-origin'});
-            return fetch(request).then(function(response) {
-              if (response.ok) {
-                return cache.put(CurrentCacheNamesToAbsoluteUrl[cacheName], response);
-              }
+  var oghliner = self.oghliner = {
 
-              console.error('Request for %s returned a response with status %d, so not attempting to cache it.',
-                urlWithCacheBusting, response.status);
-              // Get rid of the empty cache if we can't add a successful response to it.
-              return caches.delete(cacheName);
-            });
+    // This is the unique prefix for all the caches controlled by this worker.
+    CACHE_PREFIX: 'offline-cache:wfwalker/mc-choir:' + (self.registration ? self.registration.scope : '') + ':',
+
+    // This is the unique name for the cache controlled by this version of the worker.
+    get CACHE_NAME() {
+      return this.CACHE_PREFIX + '48c5df20be75853001477774e616a448630344c7';
+    },
+
+    // This is a list of resources that will be cached.
+    RESOURCES: [
+      './', // cache always the current root to make the default page available
+      './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
+      './index.html', // 202b51eaeb8d512374b859869a3c1527cd6036f6
+      './laptop.html', // 315571c626f5478a2e7e3d40e7d2e6cfce21b416
+      './Vla1-Harmonics.mp3', // 0abacdda9b62b06bb3d8d4510a2a3a99a52a65e5
+      './Vla1-HarmonicsX.mp3', // f62d6abc99dbdde9827b43c692a332f90578c2d7
+      './Vla2-Gliss.mp3', // 4ec6bd4be8ba47a641f23f072907c49b42b6a1b5
+      './Vla2-GlissX.mp3', // d3eff825f7344e34c2fc89e78b0361498202d71b
+      './Vla3-Melody1.mp3', // 4e4b2e1a2572010e72a42642273f76e619728320
+      './Vla3-Melody1X.mp3', // 90b4427137881e01375a61dce899a60c490fcca9
+      './Vla4-Melody2.mp3', // 6daad709cd8e3b0ece9d90c423ca351c245d900c
+      './Vla4-Melody2X.mp3', // c2220f71a778e62e1230d7330cebc230d55c8338
+      './Vla5-Pizz.mp3', // c27f4e37b7385d74b1f3bb11b7ac3fb3bcee7724
+      './Vla5-PizzX.mp3', // 8474f28e388585430cbda06daf06c00825ecfc9a
+      './Vla6-Arp.mp3', // 86fe61382cfaed89b44d386fa177e6b6904d46a7
+      './Vla6-ArpX.mp3', // 80679732d7e15fe623352600e4033ef3e03dfc53
+      './Vla7-WoodKnock.mp3', // 3f4039397179ab55894459c56d48abc684303948
+      './Vla7-WoodKnockX.mp3', // 64931c5358fc468d2849290e815333c23e13be1a
+      './Vla8-Trill-Bartok.mp3', // 8d2ca27a451faee13307112af11709f50cf57937
+      './Vla8-Trill-SnapX.mp3', // 3c2baa572349c5d9eb383d9474e507234fc3c798
+      './org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
+      './org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
+      './org-highmelodic.mp3', // 290d3bada7db423f9be3db827452394422e383d7
+      './org-lowmelodic.mp3', // 57628d0d10229d1d522bf11187f75c4dda4e6687
+      './org-mel1.mp3', // 8956d893553aa2b423476faff5b017370687cdf1
+      './org-mel2.mp3', // 5c60bd6965c6c180331a382a92aa467d13ae93a7
+      './org-mel3.mp3', // ca9e39edd00431fa3bffff31c8073e53d171d0f6
+      './org-perc.mp3', // 8f1b28517550aa8fbc0af8b581fb835945468b6b
+      './org-shout.mp3', // 507878565736441fcfea20384a3361deb629293e
+      './org-stabs.mp3', // 6ba7326cd6fda71048234d7265da13f6fa53e085
+      './org-sust1.mp3', // 3c7f1e8dd3fdaa33d4132797dda3a469fbd6ef6b
+      './saw440.mp3', // d0622a2fa3c5aac241c53a7eb9bbbecadce7a640
+      './sqr440.mp3', // af66b6594f894fad0503bb1b0bfe5f3993c64111
+      './chorister.png', // 8165e80d894c7a8797da1480240d2cb3ce96117c
+      './tapereel.png', // ee31a8234eeb1bdde8ceb32f36eaa193860cc931
+      './css/app.css', // 617c8b1e263a4529eeb44e43f3830bf21d6f02ee
+      './css/bootstrap.css', // cb0bed917662657e1dcc0ab7ec37deb042301441
+      './fonts/glyphicons-halflings-regular.eot', // d53dff38dfb5c414015dfb31d30a473c95b50904
+      './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
+      './fonts/glyphicons-halflings-regular.ttf', // c427041d38cd6597ae7e758028ab72756849ec26
+      './fonts/glyphicons-halflings-regular.woff', // c707207e52ffe555a36880e9873d146c226e3533
+      './js/app.js', // 84c2cb8348cefa8b830d0268bcb5f12ad2013e3e
+      './js/birdSongPlayer.js', // 0905a106cb3e04472067a08d353ccd5d6d51bb94
+      './js/bootstrap.js', // 8c639912ccd43078865578e598607d1b847c2373
+      './js/jquery.min.js', // ae49e56999d82802727455f0ba83b63acd90a22b
+      './js/offline-manager.js', // baf204692e523b9a71f5686f5df47e20ed16a2f7
+      './js/placeTimeBirdSongs.js', // d8074835d26825c23b719010cd63e709755df789
+      './js/server.js', // 625b7494cb02fa567e5d0c3c37c5c558e6668a7b
+
+    ],
+
+    // Adds the resources to the cache controlled by this worker.
+    cacheResources: function () {
+      var now = Date.now();
+      var baseUrl = self.location;
+      return this.prepareCache()
+      .then(function (cache) {
+        return Promise.all(this.RESOURCES.map(function (resource) {
+          // Bust the request to get a fresh response
+          var url = new URL(resource, baseUrl);
+          var bustParameter = (url.search ? '&' : '') + '__bust=' + now;
+          var bustedUrl = new URL(url.toString());
+          bustedUrl.search += bustParameter;
+
+          // But cache the response for the original request
+          var requestConfig = { credentials: 'same-origin' };
+          var originalRequest = new Request(url.toString(), requestConfig);
+          var bustedRequest = new Request(bustedUrl.toString(), requestConfig);
+          return fetch(bustedRequest).then(function (response) {
+            if (response.ok) {
+              return cache.put(originalRequest, response);
+            }
+            console.error('Error fetching ' + url + ', status was ' + response.status);
           });
-        })
-      ).then(function() {
-        return Promise.all(
-          allCacheNames.filter(function(cacheName) {
-            return cacheName.indexOf(CacheNamePrefix) === 0 &&
-                   !(cacheName in CurrentCacheNamesToAbsoluteUrl);
-          }).map(function(cacheName) {
-            return caches.delete(cacheName);
-          })
-        );
+        }));
+      }.bind(this));
+    },
+
+    // Remove the offline caches not controlled by this worker.
+    clearOtherCaches: function () {
+      var deleteIfNotCurrent = function (cacheName) {
+        if (cacheName.indexOf(this.CACHE_PREFIX) !== 0 || cacheName === this.CACHE_NAME) {
+          return Promise.resolve();
+        }
+        return self.caches.delete(cacheName);
+      }.bind(this);
+
+      return self.caches.keys()
+      .then(function (cacheNames) {
+        return Promise.all(cacheNames.map(deleteIfNotCurrent));
       });
-    }).then(function() {
-      if (typeof self.skipWaiting === 'function') {
-        // Force the SW to transition from installing -> active state
-        self.skipWaiting();
+
+    },
+
+    // Get a response from the current offline cache or from the network.
+    get: function (request) {
+      return this.openCache()
+      .then(function (cache) {
+        return cache.match(request);
+      })
+      .then(function (response) {
+        if (response) {
+          return response;
+        }
+        return self.fetch(request);
+      });
+    },
+
+    // Prepare the cache for installation, deleting it before if it already exists.
+    prepareCache: function () {
+      return self.caches.delete(this.CACHE_NAME).then(this.openCache.bind(this));
+    },
+
+    // Open and cache the offline cache promise to improve the performance when
+    // serving from the offline-cache.
+    openCache: function () {
+      if (!this._cache) {
+        this._cache = self.caches.open(this.CACHE_NAME);
       }
-    })
-  );
-});
-
-if (self.clients && (typeof self.clients.claim === 'function')) {
-  self.addEventListener('activate', function(event) {
-    event.waitUntil(self.clients.claim());
-  });
-}
-
-self.addEventListener('message', function(event) {
-  if (event.data.command === 'delete_all') {
-    console.log('About to delete all caches...');
-    deleteAllCaches().then(function() {
-      console.log('Caches deleted.');
-      event.ports[0].postMessage({
-        error: null
-      });
-    }).catch(function(error) {
-      console.log('Caches not deleted:', error);
-      event.ports[0].postMessage({
-        error: error
-      });
-    });
-  }
-});
-
-
-self.addEventListener('fetch', function(event) {
-  if (event.request.method === 'GET') {
-    var urlWithoutIgnoredParameters = stripIgnoredUrlParameters(event.request.url,
-      IgnoreUrlParametersMatching);
-
-    var cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
-    var directoryIndex = 'index.html';
-    if (!cacheName && directoryIndex) {
-      urlWithoutIgnoredParameters = addDirectoryIndex(urlWithoutIgnoredParameters, directoryIndex);
-      cacheName = AbsoluteUrlToCacheName[urlWithoutIgnoredParameters];
+      return this._cache;
     }
 
-    var navigateFallback = '';
-    // Ideally, this would check for event.request.mode === 'navigate', but that is not widely
-    // supported yet:
-    // https://code.google.com/p/chromium/issues/detail?id=540967
-    // https://bugzilla.mozilla.org/show_bug.cgi?id=1209081
-    if (!cacheName && navigateFallback && event.request.headers.has('accept') &&
-        event.request.headers.get('accept').includes('text/html')) {
-      var navigateFallbackUrl = new URL(navigateFallback, self.location);
-      cacheName = AbsoluteUrlToCacheName[navigateFallbackUrl.toString()];
-    }
-
-    if (cacheName) {
-      event.respondWith(
-        // Rely on the fact that each cache we manage should only have one entry, and return that.
-        caches.open(cacheName).then(function(cache) {
-          return cache.keys().then(function(keys) {
-            return cache.match(keys[0]).then(function(response) {
-              if (response) {
-                return response;
-              }
-              // If for some reason the response was deleted from the cache,
-              // raise and exception and fall back to the fetch() triggered in the catch().
-              throw Error('The cache ' + cacheName + ' is empty.');
-            });
-          });
-        }).catch(function(e) {
-          console.warn('Couldn\'t serve response for "%s" from cache: %O', event.request.url, e);
-          return fetch(event.request);
-        })
-      );
-    }
-  }
-});
-
+  };
+}(self));
