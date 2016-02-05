@@ -10,6 +10,7 @@ var srcFiles = [
   '*.html',
   '*.mp3',
   '*.png',
+  'w3c-manifest.json',
   'css/*.css',
   'fonts/*.*',
   'js/*.js',
