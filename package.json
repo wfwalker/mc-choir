@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "gulp": "^3.9.0",
-    "oghliner": "^0.7.0"
+    "oghliner": "^1.0.4"
   },
   "devDependencies": {},
   "scripts": {
