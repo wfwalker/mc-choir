@@ -37,7 +37,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '48c5df20be75853001477774e616a448630344c7';
+      return this.CACHE_PREFIX + 'a4646fe95c9de3f02ed64792c88f95e237176c62';
     },
 
     // This is a list of resources that will be cached.
@@ -87,7 +87,7 @@
       './js/birdSongPlayer.js', // 0905a106cb3e04472067a08d353ccd5d6d51bb94
       './js/bootstrap.js', // 8c639912ccd43078865578e598607d1b847c2373
       './js/jquery.min.js', // ae49e56999d82802727455f0ba83b63acd90a22b
-      './js/offline-manager.js', // baf204692e523b9a71f5686f5df47e20ed16a2f7
+      './js/offline-manager.js', // 66eee9a121acf84e027e87bc73264faaa900ca8b
       './js/placeTimeBirdSongs.js', // d8074835d26825c23b719010cd63e709755df789
       './js/server.js', // 625b7494cb02fa567e5d0c3c37c5c558e6668a7b
 
