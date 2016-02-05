@@ -37,7 +37,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '3c437accae722fe5788942c29a8d8c58cafe93c2';
+      return this.CACHE_PREFIX + '5cfd3784a665644f554a9142201a0c45efd62dc9';
     },
 
     // This is a list of resources that will be cached.
@@ -46,37 +46,26 @@
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
       './index.html', // 202b51eaeb8d512374b859869a3c1527cd6036f6
       './laptop.html', // 315571c626f5478a2e7e3d40e7d2e6cfce21b416
-      './Vla1-Harmonics.mp3', // 0abacdda9b62b06bb3d8d4510a2a3a99a52a65e5
-      './Vla1-HarmonicsX.mp3', // f62d6abc99dbdde9827b43c692a332f90578c2d7
-      './Vla2-Gliss.mp3', // 4ec6bd4be8ba47a641f23f072907c49b42b6a1b5
-      './Vla2-GlissX.mp3', // d3eff825f7344e34c2fc89e78b0361498202d71b
-      './Vla3-Melody1.mp3', // 4e4b2e1a2572010e72a42642273f76e619728320
-      './Vla3-Melody1X.mp3', // 90b4427137881e01375a61dce899a60c490fcca9
-      './Vla4-Melody2.mp3', // 6daad709cd8e3b0ece9d90c423ca351c245d900c
-      './Vla4-Melody2X.mp3', // c2220f71a778e62e1230d7330cebc230d55c8338
-      './Vla5-Pizz.mp3', // c27f4e37b7385d74b1f3bb11b7ac3fb3bcee7724
-      './Vla5-PizzX.mp3', // 8474f28e388585430cbda06daf06c00825ecfc9a
-      './Vla6-Arp.mp3', // 86fe61382cfaed89b44d386fa177e6b6904d46a7
-      './Vla6-ArpX.mp3', // 80679732d7e15fe623352600e4033ef3e03dfc53
-      './Vla7-WoodKnock.mp3', // 3f4039397179ab55894459c56d48abc684303948
-      './Vla7-WoodKnockX.mp3', // 64931c5358fc468d2849290e815333c23e13be1a
-      './Vla8-Trill-Bartok.mp3', // 8d2ca27a451faee13307112af11709f50cf57937
-      './Vla8-Trill-SnapX.mp3', // 3c2baa572349c5d9eb383d9474e507234fc3c798
       './org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
       './org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
       './org-highmelodic.mp3', // 290d3bada7db423f9be3db827452394422e383d7
       './org-lowmelodic.mp3', // 57628d0d10229d1d522bf11187f75c4dda4e6687
       './org-mel1.mp3', // 8956d893553aa2b423476faff5b017370687cdf1
-      './org-mel2.mp3', // 5c60bd6965c6c180331a382a92aa467d13ae93a7
-      './org-mel3.mp3', // ca9e39edd00431fa3bffff31c8073e53d171d0f6
       './org-perc.mp3', // 8f1b28517550aa8fbc0af8b581fb835945468b6b
       './org-shout.mp3', // 507878565736441fcfea20384a3361deb629293e
       './org-stabs.mp3', // 6ba7326cd6fda71048234d7265da13f6fa53e085
       './org-sust1.mp3', // 3c7f1e8dd3fdaa33d4132797dda3a469fbd6ef6b
       './saw440.mp3', // d0622a2fa3c5aac241c53a7eb9bbbecadce7a640
       './sqr440.mp3', // af66b6594f894fad0503bb1b0bfe5f3993c64111
+      './Vla1-HarmonicsX.mp3', // f62d6abc99dbdde9827b43c692a332f90578c2d7
+      './Vla2-GlissX.mp3', // d3eff825f7344e34c2fc89e78b0361498202d71b
+      './Vla3-Melody1X.mp3', // 90b4427137881e01375a61dce899a60c490fcca9
+      './Vla4-Melody2X.mp3', // c2220f71a778e62e1230d7330cebc230d55c8338
+      './Vla5-PizzX.mp3', // 8474f28e388585430cbda06daf06c00825ecfc9a
+      './Vla6-ArpX.mp3', // 80679732d7e15fe623352600e4033ef3e03dfc53
+      './Vla7-WoodKnockX.mp3', // 64931c5358fc468d2849290e815333c23e13be1a
+      './Vla8-Trill-SnapX.mp3', // 3c2baa572349c5d9eb383d9474e507234fc3c798
       './chorister.png', // 8165e80d894c7a8797da1480240d2cb3ce96117c
-      './tapereel.png', // ee31a8234eeb1bdde8ceb32f36eaa193860cc931
       './w3c-manifest.json', // ad464e342585e3d52ff2d973486c5310371a9f99
       './css/app.css', // 617c8b1e263a4529eeb44e43f3830bf21d6f02ee
       './css/bootstrap.css', // cb0bed917662657e1dcc0ab7ec37deb042301441
@@ -90,7 +79,6 @@
       './js/jquery.min.js', // ae49e56999d82802727455f0ba83b63acd90a22b
       './js/offline-manager.js', // 66eee9a121acf84e027e87bc73264faaa900ca8b
       './js/placeTimeBirdSongs.js', // d8074835d26825c23b719010cd63e709755df789
-      './js/server.js', // 625b7494cb02fa567e5d0c3c37c5c558e6668a7b
 
     ],
 
