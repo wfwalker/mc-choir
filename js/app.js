@@ -156,6 +156,8 @@ function stopPlayingAllSounds() {
 	$('label.checkbox-inline input').each(function (index) {
 		stopPlayingSound($(this));
 		$(this).removeClass('checked');
+		$(this).parent().removeClass('checked');
+		$(this).parent().parent().removeClass('checked');
 		$(this).attr('checked', false);
 	});
 }
@@ -168,6 +170,8 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 			// console.log('do not skip', inCheckbox.attr('value'), $(this).attr('value'))
 			stopPlayingSound($(this));
 			$(this).removeClass('checked');
+			$(this).parent().removeClass('checked');
+			$(this).parent().parent().removeClass('checked');
 			$(this).attr('checked', false);
 		}
 	});
@@ -221,6 +225,8 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 		// respond to a checkbox event either by starting or stopping sound
 		$(document).on('change', 'input:checkbox', function (e) {
 			$(this).toggleClass('checked');
+			$(this).parent().toggleClass('checked');
+			$(this).parent().parent().toggleClass('checked');
 
 			if ($(this).hasClass('checked')) {
 				if ($(this).data('exclusive')) {

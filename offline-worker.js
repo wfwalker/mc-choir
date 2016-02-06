@@ -37,7 +37,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + 'e34eb7ed040b9621492211c86d0a00706262252c';
+      return this.CACHE_PREFIX + '55c55563e76b71c1b8d277a477cdce6ec701e8fa';
     },
 
     // This is a list of resources that will be cached.
@@ -67,13 +67,13 @@
       './Vla8-Trill-SnapX.mp3', // 3c2baa572349c5d9eb383d9474e507234fc3c798
       './chorister.png', // 8165e80d894c7a8797da1480240d2cb3ce96117c
       './w3c-manifest.json', // ad464e342585e3d52ff2d973486c5310371a9f99
-      './css/app.css', // a7fadd7a1ed38b79748fc82aca088cd6694857f1
+      './css/app.css', // 55dfa1c56a3649e727502aceb6d0ef2fdce1bca6
       './css/bootstrap.css', // cb0bed917662657e1dcc0ab7ec37deb042301441
       './fonts/glyphicons-halflings-regular.eot', // d53dff38dfb5c414015dfb31d30a473c95b50904
       './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
       './fonts/glyphicons-halflings-regular.ttf', // c427041d38cd6597ae7e758028ab72756849ec26
       './fonts/glyphicons-halflings-regular.woff', // c707207e52ffe555a36880e9873d146c226e3533
-      './js/app.js', // 4f6390622517b08c76ce5b1057b5eccdc3206208
+      './js/app.js', // 5be46fe28ed7091dbd61c814b28e24c928b1dbc5
       './js/birdSongPlayer.js', // 0905a106cb3e04472067a08d353ccd5d6d51bb94
       './js/bootstrap.js', // 8c639912ccd43078865578e598607d1b847c2373
       './js/jquery.min.js', // ae49e56999d82802727455f0ba83b63acd90a22b
