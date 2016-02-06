@@ -22,6 +22,10 @@ label.checkbox-inline {
 	border-radius: 10px;
 }
 
+div.checked {
+	border: solid 3px black;
+}
+
 .glyphicon-tree-deciduous {
 	color: #5CB85C;
 }
