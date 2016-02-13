@@ -112,11 +112,18 @@ function loadAllSounds() {
 //       value='./Vla1-HarmonicsX.mp3' data-exclusive='false'
 //       data-rates='1.0, 2.0, 0.5, 1.5, 0.66667, 1.3333, 0.75' autocomplete="off">
 
-function startPlayingSound(activeInput) {
+function startPlayingSound(activeInput, chooseNewRate) {
 	var soundURL = activeInput.attr('value');
 	var rates = (activeInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
-	var randomRate = rates[Math.floor(Math.random() * rates.length)];
-	activeInput.attr('data-rate', randomRate);
+
+	// retrieve the old rate
+	var randomRate = activeInput.attr('data-rate');
+
+	// if requested, choose a new rate
+	if (chooseNewRate) {
+		randomRate = rates[Math.floor(Math.random() * rates.length)];
+		activeInput.attr('data-rate', randomRate);
+	}
 
 	if (gSounds[soundURL]) {
 		// start playing immediately in a loop
@@ -234,11 +241,12 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 			}
 		});
 
-		// reverse button plays sounds backward
+		// reverse button plays sounds backward, maybe
 		$('#reverse').click(function (e) {
 			for (url in gSoundSources) {
 				var theInput = $('input[value="' + url + '"]');
-				console.log(url, theInput);
+				stopPlayingSound(theInput);
+				startPlayingSound(theInput, false);
 			}
 		});
 
@@ -256,7 +264,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 					console.log('not exclusive, do not stop other sounds');
 				}
 				console.log('CHECKED', $(this));
-				startPlayingSound($(this));
+				startPlayingSound($(this), true);
 			} else {
 				console.log('UNCHECKED', $(this));
 				stopPlayingSound($(this));
