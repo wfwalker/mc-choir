@@ -178,10 +178,8 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 }
 
 function handleKeypress(inKey) {
-	if (inKey == ' ') {
-		console.log('STOP ALL');
-		$('#halt').click();
-	}
+	// find something whose data-key attribute matches and click it
+	$('[data-key="' + inKey+ '"]').click();
 }
 
 // REDIRECT to HTTPS!
