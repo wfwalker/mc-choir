@@ -177,12 +177,20 @@ function stopPlayingAllOtherSounds(inCheckbox) {
 	});
 }
 
+function handleKeypress(inKey) {
+	if (inKey == ' ') {
+		console.log('STOP ALL');
+		$('#halt').click();
+	}
+}
+
 // REDIRECT to HTTPS!
 var host = "wfwalker.github.io";
 if ((host == window.location.host) && (window.location.protocol != "https:")) {
 	window.location.protocol = "https";
 } else {
 	$(document).ready(function() {
+		// TODO: graceful exit if Web Audio API is absent
 		if (window.AudioContext||window.webkitAudioContext) {
 			// load all the sounds first
 			loadAllSounds();
@@ -191,7 +199,10 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 			console.log('No Web Audio API');
 		}
 
-		// TODO: graceful exit if Web Audio API is absent
+		$(document).keypress(function (e) {
+			e.preventDefault();
+			handleKeypress(e.key);
+		});
 
 		// halt button stops playing all sounds
 		$('#halt').click(function (e) {
