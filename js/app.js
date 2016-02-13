@@ -110,6 +110,7 @@ function startPlayingSound(activeRadioButton) {
 	var soundURL = activeRadioButton.attr('value');
 	var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 	var randomRate = rates[Math.floor(Math.random() * rates.length)];
+	activeRadioButton.attr('data-rate', randomRate);
 
 	if (gSounds[soundURL]) {
 		// start playing immediately in a loop
@@ -118,8 +119,10 @@ function startPlayingSound(activeRadioButton) {
 
 		// play forwards or backwards, at random
 		if (Math.random() > 0.5) {
+			activeRadioButton.attr('data-forward', true);
 			newSoundSource.buffer = gSounds[soundURL];
 		} else {
+			activeRadioButton.attr('data-forward', false);
 			newSoundSource.buffer = gReversedSounds[soundURL];
 		}
 
@@ -217,6 +220,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 				if (gSoundSources[url]) {
 					gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 					console.log(url, rates, randomRate);
+					theInput.attr('data-rate', randomRate);
 					$('#soundInfo').text(url + ', ' + rates + ' -> ' + randomRate);
 				} else {
 					console.log(url, 'not playing');
