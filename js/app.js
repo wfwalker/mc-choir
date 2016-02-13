@@ -217,6 +217,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 				if (gSoundSources[url]) {
 					gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 					console.log(url, rates, randomRate);
+					$('#soundInfo').text(url + ', ' + rates + ' -> ' + randomRate);
 				} else {
 					console.log(url, 'not playing');
 				}
