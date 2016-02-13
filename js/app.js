@@ -141,7 +141,7 @@ function startPlayingSound(activeInput, chooseNewRate) {
 
 		// compute random offset
 		var offset = Math.random() * newSoundSource.buffer.duration;
-		console.log('duration', newSoundSource.buffer.duration, 'offset', offset);
+		console.log('duration', newSoundSource.buffer.duration, 'offset', offset, 'forward', activeInput.attr('data-forward'));
 
 		newSoundSource.loop = true;
 		newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
@@ -244,9 +244,13 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 		// reverse button plays sounds backward, maybe
 		$('#reverse').click(function (e) {
 			for (url in gSoundSources) {
-				var theInput = $('input[value="' + url + '"]');
-				stopPlayingSound(theInput);
-				startPlayingSound(theInput, false);
+				if (gSoundSources[url]) {
+					var theInput = $('input[value="' + url + '"]');
+					stopPlayingSound(theInput);
+					startPlayingSound(theInput, false);
+				} else {
+					console.log(url, 'not playing');
+				}
 			}
 		});
 
