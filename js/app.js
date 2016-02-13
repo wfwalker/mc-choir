@@ -106,11 +106,17 @@ function loadAllSounds() {
 	});
 }
 
-function startPlayingSound(activeRadioButton) {
-	var soundURL = activeRadioButton.attr('value');
-	var rates = (activeRadioButton.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
+// Start playing a sound for an input field that looks like this:
+
+// <input data-key='1' type="checkbox" name="sounds"
+//       value='./Vla1-HarmonicsX.mp3' data-exclusive='false'
+//       data-rates='1.0, 2.0, 0.5, 1.5, 0.66667, 1.3333, 0.75' autocomplete="off">
+
+function startPlayingSound(activeInput) {
+	var soundURL = activeInput.attr('value');
+	var rates = (activeInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 	var randomRate = rates[Math.floor(Math.random() * rates.length)];
-	activeRadioButton.attr('data-rate', randomRate);
+	activeInput.attr('data-rate', randomRate);
 
 	if (gSounds[soundURL]) {
 		// start playing immediately in a loop
@@ -119,10 +125,10 @@ function startPlayingSound(activeRadioButton) {
 
 		// play forwards or backwards, at random
 		if (Math.random() > 0.5) {
-			activeRadioButton.attr('data-forward', true);
+			activeInput.attr('data-forward', true);
 			newSoundSource.buffer = gSounds[soundURL];
 		} else {
-			activeRadioButton.attr('data-forward', false);
+			activeInput.attr('data-forward', false);
 			newSoundSource.buffer = gReversedSounds[soundURL];
 		}
 
@@ -141,8 +147,8 @@ function startPlayingSound(activeRadioButton) {
 	}
 }
 
-function stopPlayingSound(activeRadioButton) {
-	var soundURL = activeRadioButton.attr('value');
+function stopPlayingSound(activeInput) {
+	var soundURL = activeInput.attr('value');
 
 	if (gSoundSources[soundURL]) {
 		gSoundSources[soundURL].stop(0);
@@ -165,12 +171,12 @@ function stopPlayingAllSounds() {
 	});
 }
 
-function stopPlayingAllOtherSounds(inCheckbox) {
+function stopPlayingAllOtherSounds(activeInput) {
 	$('label.checkbox-inline input').each(function (index) {
-		if ($(this).attr('value') == inCheckbox.attr('value')) {
-			// console.log('skip stopping', inCheckbox.attr('value'));
+		if ($(this).attr('value') == activeInput.attr('value')) {
+			// console.log('skip stopping', activeInput.attr('value'));
 		} else {
-			// console.log('do not skip', inCheckbox.attr('value'), $(this).attr('value'))
+			// console.log('do not skip', activeInput.attr('value'), $(this).attr('value'))
 			stopPlayingSound($(this));
 			$(this).removeClass('checked');
 			$(this).parent().removeClass('checked');
