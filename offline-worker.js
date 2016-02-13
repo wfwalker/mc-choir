@@ -37,14 +37,14 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + 'cd479c0cee62de8840acc1de3b03f04a0d5e7804';
+      return this.CACHE_PREFIX + 'fcf9bab3e5e2cac80b098689231a909016ad1c07';
     },
 
     // This is a list of resources that will be cached.
     RESOURCES: [
       './', // cache always the current root to make the default page available
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
-      './index.html', // 202b51eaeb8d512374b859869a3c1527cd6036f6
+      './index.html', // d80afd006d4eb5e023214efa854b1eba5ea4745d
       './laptop.html', // 315571c626f5478a2e7e3d40e7d2e6cfce21b416
       './org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
       './org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
@@ -73,7 +73,7 @@
       './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
       './fonts/glyphicons-halflings-regular.ttf', // c427041d38cd6597ae7e758028ab72756849ec26
       './fonts/glyphicons-halflings-regular.woff', // c707207e52ffe555a36880e9873d146c226e3533
-      './js/app.js', // 50daef83ac8f7d96a79ce77c57de0fdefa14896a
+      './js/app.js', // 030754a37e9e54f0eb4a80f0f7ba083fa9edccf6
       './js/birdSongPlayer.js', // 0905a106cb3e04472067a08d353ccd5d6d51bb94
       './js/bootstrap.js', // 8c639912ccd43078865578e598607d1b847c2373
       './js/jquery.min.js', // ae49e56999d82802727455f0ba83b63acd90a22b
