@@ -277,3 +277,9 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 	});
 }
 
+// use fastclick
+$(function() {
+	FastClick.attach(document.body);
+});
+
+
