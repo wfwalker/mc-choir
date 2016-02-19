@@ -116,6 +116,13 @@ function startPlayingSound(activeInput, chooseNewRate) {
 	var soundURL = activeInput.attr('value');
 	var rates = (activeInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 
+	ga('send', {
+		hitType: 'event',
+		eventCategory: 'Sounds',
+		eventAction: 'play',
+		eventLabel: soundURL
+	});
+
 	// retrieve the old rate
 	var randomRate = activeInput.attr('data-rate');
 
@@ -156,6 +163,13 @@ function startPlayingSound(activeInput, chooseNewRate) {
 
 function stopPlayingSound(activeInput) {
 	var soundURL = activeInput.attr('value');
+
+	ga('send', {
+		hitType: 'event',
+		eventCategory: 'Sounds',
+		eventAction: 'stop',
+		eventLabel: soundURL
+	});
 
 	if (gSoundSources[soundURL]) {
 		gSoundSources[soundURL].stop(0);
