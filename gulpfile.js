@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var oghliner = require('oghliner');
+var path = require('path');
 
 gulp.task('default', ['build', 'offline']);
 
@@ -23,11 +24,19 @@ var srcFiles = [
 // dist/css/style.css becomes css/style.css, not /css/style.css.
 var rootDir = 'dist/';
 
+gulp.task('copy-fastclick', function() {
+    return gulp.src('node_modules/fastclick/lib/fastclick.js')
+        .pipe(gulp.dest(function(file) {
+            file.path = file.base + path.basename(file.path);
+            return 'dist/js';
+        }));
+});
+
 gulp.task('build', function(callback) {
   return gulp.src(srcFiles, { base: '.' }).pipe(gulp.dest(rootDir));
 });
 
-gulp.task('offline', ['build'], function(callback) {
+gulp.task('offline', ['build', 'copy-fastclick'], function(callback) {
   oghliner.offline({
     rootDir: rootDir,
     fileGlobs: srcFiles,
