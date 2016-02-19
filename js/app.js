@@ -116,13 +116,6 @@ function startPlayingSound(activeInput, chooseNewRate) {
 	var soundURL = activeInput.attr('value');
 	var rates = (activeInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 
-	ga('send', {
-		hitType: 'event',
-		eventCategory: 'Sounds',
-		eventAction: 'play',
-		eventLabel: soundURL
-	});
-
 	// retrieve the old rate
 	var randomRate = activeInput.attr('data-rate');
 
@@ -133,6 +126,13 @@ function startPlayingSound(activeInput, chooseNewRate) {
 	}
 
 	if (gSounds[soundURL]) {
+		ga('send', {
+			hitType: 'event',
+			eventCategory: 'Sounds',
+			eventAction: 'play',
+			eventLabel: soundURL
+		});
+
 		// start playing immediately in a loop
 		var newSoundSource = gAudioContext.createBufferSource();
 		newSoundSource.connect(gAudioContext.destination);
@@ -164,19 +164,19 @@ function startPlayingSound(activeInput, chooseNewRate) {
 function stopPlayingSound(activeInput) {
 	var soundURL = activeInput.attr('value');
 
-	ga('send', {
-		hitType: 'event',
-		eventCategory: 'Sounds',
-		eventAction: 'stop',
-		eventLabel: soundURL
-	});
-
 	if (gSoundSources[soundURL]) {
 		gSoundSources[soundURL].stop(0);
 		gSoundSources[soundURL].disconnect();
 		gSoundSources[soundURL] = null;
 		$('#soundInfo').text('');
 		console.log('STOPPED', soundURL);		
+
+		ga('send', {
+			hitType: 'event',
+			eventCategory: 'Sounds',
+			eventAction: 'stop',
+			eventLabel: soundURL
+		});
 	} else {
 		// console.log('not playing, stop does nothing');
 	}
