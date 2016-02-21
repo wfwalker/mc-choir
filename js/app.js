@@ -112,7 +112,9 @@ function loadAllSounds() {
 //       value='./Vla1-HarmonicsX.mp3' data-exclusive='false'
 //       data-rates='1.0, 2.0, 0.5, 1.5, 0.66667, 1.3333, 0.75' autocomplete="off">
 
-function startPlayingSound(activeInput, chooseNewRate) {
+function startPlayingSound(activeInput, chooseNewRate, chooseRandomDirection) {
+	console.log('startPlayingSound', chooseNewRate, chooseRandomDirection);
+
 	var soundURL = activeInput.attr('value');
 	var rates = (activeInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
 
@@ -137,8 +139,24 @@ function startPlayingSound(activeInput, chooseNewRate) {
 		var newSoundSource = gAudioContext.createBufferSource();
 		newSoundSource.connect(gAudioContext.destination);
 
+		// either choose playback direction randomly,
+		// 	or opposite to current direction
+
+		var newDirection = Math.random() > 0.5;
+
+		if (chooseRandomDirection) {
+			console.log('yes random direction, we picked', newDirection);
+		} else {
+			console.log('reverse existing direction');
+			if (activeInput.attr('data-forward')) {
+				newDirection = (activeInput.attr('data-forward') == 'false');
+			} else {
+				console.log('missing direction attribute!');
+			}
+		}
+
 		// play forwards or backwards, at random
-		if (Math.random() > 0.5) {
+		if (newDirection) {
 			activeInput.attr('data-forward', true);
 			newSoundSource.buffer = gSounds[soundURL];
 		} else {
@@ -267,7 +285,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 				if (gSoundSources[url]) {
 					var theInput = $('input[value="' + url + '"]');
 					stopPlayingSound(theInput);
-					startPlayingSound(theInput, false);
+					startPlayingSound(theInput, false, false);
 					ga('send', {
 						hitType: 'event',
 						eventCategory: 'Sounds',
@@ -294,7 +312,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 					console.log('not exclusive, do not stop other sounds');
 				}
 				console.log('CHECKED', $(this));
-				startPlayingSound($(this), true);
+				startPlayingSound($(this), true, true);
 			} else {
 				console.log('UNCHECKED', $(this));
 				stopPlayingSound($(this));
