@@ -253,7 +253,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 						hitType: 'event',
 						eventCategory: 'Sounds',
 						eventAction: 'rate',
-						eventLabel: soundURL
+						eventLabel: url
 					});
 				} else {
 					console.log(url, 'not playing');
@@ -272,7 +272,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 						hitType: 'event',
 						eventCategory: 'Sounds',
 						eventAction: 'reverse',
-						eventLabel: soundURL
+						eventLabel: url
 					});
 				} else {
 					console.log(url, 'not playing');
