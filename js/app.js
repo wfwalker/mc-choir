@@ -249,6 +249,12 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 					console.log(url, rates, randomRate);
 					theInput.attr('data-rate', randomRate);
 					$('#soundInfo').text(url + ', ' + rates + ' -> ' + randomRate);
+					ga('send', {
+						hitType: 'event',
+						eventCategory: 'Sounds',
+						eventAction: 'rate',
+						eventLabel: soundURL
+					});
 				} else {
 					console.log(url, 'not playing');
 				}
@@ -262,6 +268,12 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 					var theInput = $('input[value="' + url + '"]');
 					stopPlayingSound(theInput);
 					startPlayingSound(theInput, false);
+					ga('send', {
+						hitType: 'event',
+						eventCategory: 'Sounds',
+						eventAction: 'reverse',
+						eventLabel: soundURL
+					});
 				} else {
 					console.log(url, 'not playing');
 				}
