@@ -37,14 +37,14 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '46072af98fa1e49260e65f18106ac068d767e632';
+      return this.CACHE_PREFIX + '7fb89304fcf233f910728beed218f78281f8bdb2';
     },
 
     // This is a list of resources that will be cached.
     RESOURCES: [
       './', // cache always the current root to make the default page available
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
-      './index.html', // 1c6a4c8ef814a178c7bdd7c40121b80a2100831d
+      './index.html', // c13334fbb2a901c84950a7192378559625fda773
       './laptop.html', // cea6e62ded7b62aa9a272d73375e1c07e5a51b87
       './org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
       './org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
@@ -66,8 +66,24 @@
       './Vla7-WoodKnockX.mp3', // 64931c5358fc468d2849290e815333c23e13be1a
       './Vla8-Trill-SnapX.mp3', // 3c2baa572349c5d9eb383d9474e507234fc3c798
       './chorister.png', // 8165e80d894c7a8797da1480240d2cb3ce96117c
+      './org-arpeggio.png', // 7461db9b8d1ca4bc5a1a7f289556a54f5cffd902
+      './org-chordrhythm.png', // ee4cbe1b8a1715f5b03c0121cdaec12366d4327b
+      './org-highmelodic.png', // bbb70ff3cf31cfbc7b4272f509c969a06e87f00b
+      './org-lowmelodic.png', // 678cca109bcd9db2816f538f98cccc2eb9890801
+      './org-perc.png', // f41c4071928ca237e02aa1616b941bff92875c4b
+      './org-shout.png', // 4d1e327862b027e267d031bbd2ca252c07d51822
+      './org-stabs.png', // a721e8b3594a4258e68c6d78ab3e81104b12fdb8
+      './org-sust1.png', // f5aae3eb2960a1cab68fd1d367ab2be941cee87a
+      './Vla1-HarmonicsX.png', // 6b81523e20228b45df3c1dca5657fe1f49ce372a
+      './Vla2-GlissX.png', // a2790ce790a1e3a3bbed755a1518ea658175728a
+      './Vla3-Melody1X.png', // 85bf14e0255592e6406edcd421aeec1bfbfef380
+      './Vla4-Melody2X.png', // 4eb1fc2c18ecbf34984565aa776b40967f4dd25d
+      './Vla5-PizzX.png', // 0563077d5f940a2c41206c28b5458fc87ae778c5
+      './Vla6-ArpX.png', // 97f0ef89fad7b7e0aaa1e6137249fc5138abd2f8
+      './Vla7-WoodKnockX.png', // d885c332f86def824bad187072784536568b2ca5
+      './Vla8-Trill-SnapX.png', // d6223e85bf8a00083667198bc372afcc797feefb
       './w3c-manifest.json', // ad464e342585e3d52ff2d973486c5310371a9f99
-      './css/app.css', // 55dfa1c56a3649e727502aceb6d0ef2fdce1bca6
+      './css/app.css', // 3b1f53cd10b06e1a68799b8a89a336c9e5ac47c8
       './css/bootstrap.css', // cb0bed917662657e1dcc0ab7ec37deb042301441
       './fonts/glyphicons-halflings-regular.eot', // d53dff38dfb5c414015dfb31d30a473c95b50904
       './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
