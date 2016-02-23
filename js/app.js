@@ -245,7 +245,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 			console.log('No Web Audio API');
 		}
 
-		$(document).keypress(function (e) {
+		$('body').keypress(function (e) {
 			e.preventDefault();
 			handleKeypress(e.key);
 		});
