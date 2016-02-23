@@ -37,7 +37,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '1175ac53feb8dfb4a325a9e53a4934f62f16d9d3';
+      return this.CACHE_PREFIX + 'b869a02bf5d5ba24e497f3b9adefad81936cc124';
     },
 
     // This is a list of resources that will be cached.
@@ -45,7 +45,7 @@
       './', // cache always the current root to make the default page available
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
       './index.html', // c13334fbb2a901c84950a7192378559625fda773
-      './laptop.html', // 92f4ceff99bf4a4edd922307fbd4a32c4e8f1098
+      './laptop.html', // eb7928b1b223524016a31cd34f72bcdfc4569c17
       './org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
       './org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
       './org-highmelodic.mp3', // 290d3bada7db423f9be3db827452394422e383d7
@@ -83,7 +83,7 @@
       './Vla7-WoodKnockX.png', // d885c332f86def824bad187072784536568b2ca5
       './Vla8-Trill-SnapX.png', // d6223e85bf8a00083667198bc372afcc797feefb
       './w3c-manifest.json', // ad464e342585e3d52ff2d973486c5310371a9f99
-      './css/app.css', // 808397261458c732886d7ed7db68a0573c2fcc59
+      './css/app.css', // 338bac1f4bd2302dcf0f205c858b568f92881170
       './css/bootstrap.css', // cb0bed917662657e1dcc0ab7ec37deb042301441
       './fonts/glyphicons-halflings-regular.eot', // d53dff38dfb5c414015dfb31d30a473c95b50904
       './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
