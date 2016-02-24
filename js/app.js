@@ -247,7 +247,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 
 		$('body').keypress(function (e) {
 			e.preventDefault();
-			handleKeypress(e.key);
+			handleKeypress(String.fromCharCode(e.charCode));
 		});
 
 		// halt button stops playing all sounds
