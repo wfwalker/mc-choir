@@ -37,7 +37,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '1c49ff8f6f62dc8519a9e133ed86584e98a66743';
+      return this.CACHE_PREFIX + '1701e8a6b4e99c6f7c60b3dd8afef7037e444be1';
     },
 
     // This is a list of resources that will be cached.
@@ -89,7 +89,7 @@
       './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
       './fonts/glyphicons-halflings-regular.ttf', // c427041d38cd6597ae7e758028ab72756849ec26
       './fonts/glyphicons-halflings-regular.woff', // c707207e52ffe555a36880e9873d146c226e3533
-      './js/app.js', // 589b46d1cd80b7bbbee00942c2c944ed37456975
+      './js/app.js', // 1756bb9120e6686b582a7539975b5d180a53f648
       './js/birdSongPlayer.js', // 0905a106cb3e04472067a08d353ccd5d6d51bb94
       './js/bootstrap.js', // 8c639912ccd43078865578e598607d1b847c2373
       './js/fastclick.js', // 06cef196733a710e77ad7e386ced6963f092dc55
