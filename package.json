@@ -8,7 +8,9 @@
     "gulp": "^3.9.0",
     "oghliner": "^1.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-eslint": "^1.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

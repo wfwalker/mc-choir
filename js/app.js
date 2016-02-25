@@ -29,7 +29,7 @@ function getArrayBuffer(url) {
 
     // Handle network errors
     req.onerror = function() {
-      reject(Error("Network Error"));
+      reject(Error('Network Error'));
     };
 
     // Make the request
@@ -63,7 +63,7 @@ function decodeAudioDataAsync(data){
 function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 		gSoundProgress++;
-		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
+		$('.progress-bar').css('width', Math.floor(100 * gSoundProgress / gSoundTotal) + '%');
 		console.time('decode' + inSoundDataURL);
 		$('#loadingStatus').text('DECODE ' + inSoundDataURL);
 	    return decodeAudioDataAsync(response);
@@ -72,14 +72,14 @@ function loadSound(inSoundDataURL) {
 		gSounds[inSoundDataURL] = decodedBuffer;
 
 		gSoundProgress++;
-		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
+		$('.progress-bar').css('width', Math.floor(100 * gSoundProgress / gSoundTotal) + '%');
 
 		$('#loadingStatus').text('REVERSE ' + inSoundDataURL);
 		gReversedSounds[inSoundDataURL] = createReverseBuffer(decodedBuffer);
 
 		gSoundProgress++;
 		$('#loadingStatus').text('DONE ' + inSoundDataURL);
-		$('.progress-bar').css("width", Math.floor(100 * gSoundProgress / gSoundTotal) + "%");
+		$('.progress-bar').css('width', Math.floor(100 * gSoundProgress / gSoundTotal) + '%');
 	}).catch(function(e) {
 		console.log('ERROR', e);
 	});
@@ -116,7 +116,7 @@ function startPlayingSound(activeInput, chooseNewRate, chooseRandomDirection) {
 	console.log('startPlayingSound', chooseNewRate, chooseRandomDirection);
 
 	var soundURL = activeInput.attr('value');
-	var rates = (activeInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
+	var rates = (activeInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
 
 	// retrieve the old rate
 	var randomRate = activeInput.attr('data-rate');
@@ -132,7 +132,7 @@ function startPlayingSound(activeInput, chooseNewRate, chooseRandomDirection) {
 			hitType: 'event',
 			eventCategory: 'Sounds',
 			eventAction: 'play',
-			eventLabel: soundURL
+			eventLabel: soundURL,
 		});
 
 		// start playing immediately in a loop
@@ -193,7 +193,7 @@ function stopPlayingSound(activeInput) {
 			hitType: 'event',
 			eventCategory: 'Sounds',
 			eventAction: 'stop',
-			eventLabel: soundURL
+			eventLabel: soundURL,
 		});
 	} else {
 		// console.log('not playing, stop does nothing');
@@ -231,9 +231,9 @@ function handleKeypress(inKey) {
 }
 
 // REDIRECT to HTTPS!
-var host = "wfwalker.github.io";
-if ((host == window.location.host) && (window.location.protocol != "https:")) {
-	window.location.protocol = "https";
+var host = 'wfwalker.github.io';
+if ((host == window.location.host) && (window.location.protocol != 'https:')) {
+	window.location.protocol = 'https';
 } else {
 	$(document).ready(function() {
 		// TODO: graceful exit if Web Audio API is absent
@@ -259,7 +259,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 		$('#rate').click(function (e) {
 			for (url in gSoundSources) {
 				var theInput = $('input[value="' + url + '"]');
-				var rates = (theInput.data('rates')+"").split(',').map(function(str) { return parseFloat(str); });
+				var rates = (theInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
 				var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
 				if (gSoundSources[url]) {
@@ -271,7 +271,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 						hitType: 'event',
 						eventCategory: 'Sounds',
 						eventAction: 'rate',
-						eventLabel: url
+						eventLabel: url,
 					});
 				} else {
 					console.log(url, 'not playing');
@@ -290,7 +290,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:")) {
 						hitType: 'event',
 						eventCategory: 'Sounds',
 						eventAction: 'reverse',
-						eventLabel: url
+						eventLabel: url,
 					});
 				} else {
 					console.log(url, 'not playing');

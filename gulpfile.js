@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var oghliner = require('oghliner');
+var eslint = require('gulp-eslint');
 var path = require('path');
 
 gulp.task('default', ['build', 'offline']);
@@ -30,6 +31,17 @@ gulp.task('copy-fastclick', function() {
             file.path = file.base + path.basename(file.path);
             return 'dist/js';
         }));
+});
+
+gulp.task('lint', function() {
+  return gulp.src(['js/app.js']).pipe(eslint({
+    'rules':{
+        'quotes': [1, 'single'],
+        'semi': [1, 'always'],
+        'comma-dangle': [1, 'always-multiline'],
+        'quote-props': [1, 'as-needed']
+    }
+  })).pipe(eslint.format());
 });
 
 gulp.task('build', function(callback) {
