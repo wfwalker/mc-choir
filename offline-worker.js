@@ -37,15 +37,15 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '9cdf40ab528de755edb3edfb51a71ea0ecf4d945';
+      return this.CACHE_PREFIX + 'f3426d08065b85b233be6dc07a4b3079f875d5c9';
     },
 
     // This is a list of resources that will be cached.
     RESOURCES: [
       './', // cache always the current root to make the default page available
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
-      './index.html', // c13334fbb2a901c84950a7192378559625fda773
-      './laptop.html', // bbb48e45d1147b6f22e9bab6b9352f69d7fe5310
+      './index.html', // 25172aa28b0657743985986ec6bcfcd2d8e00c4b
+      './laptop.html', // 5c2d4638c859fd211d4e030c2405c6617b60f2ba
       './org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
       './org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
       './org-highmelodic.mp3', // 290d3bada7db423f9be3db827452394422e383d7
@@ -84,13 +84,13 @@
       './Vla8-Trill-SnapX.png', // d6223e85bf8a00083667198bc372afcc797feefb
       './w3c-manifest.json', // ad464e342585e3d52ff2d973486c5310371a9f99
       './css/app.css', // 338bac1f4bd2302dcf0f205c858b568f92881170
-      './css/bootstrap.css', // cb0bed917662657e1dcc0ab7ec37deb042301441
+      './css/bootstrap.css', // 4316dcfb54e1b0a428e1d37203a4028fd0408298
       './fonts/glyphicons-halflings-regular.eot', // d53dff38dfb5c414015dfb31d30a473c95b50904
       './fonts/glyphicons-halflings-regular.svg', // 796e58aedfcfe8a3b0829bc0594f739936a9d7d0
       './fonts/glyphicons-halflings-regular.ttf', // c427041d38cd6597ae7e758028ab72756849ec26
       './fonts/glyphicons-halflings-regular.woff', // c707207e52ffe555a36880e9873d146c226e3533
       './js/app.js', // 114e8f464806fa5461238b7368cd71fc4df5deed
-      './js/bootstrap.js', // 8c639912ccd43078865578e598607d1b847c2373
+      './js/bootstrap.min.js', // 791aa054a026bddc0de92bad6cf7a1c6e73713d5
       './js/fastclick.js', // 06cef196733a710e77ad7e386ced6963f092dc55
       './js/jquery.min.js', // 7cb05e3d551cd61439337b2cb22f49b1955f9711
       './js/offline-manager.js', // 66eee9a121acf84e027e87bc73264faaa900ca8b
