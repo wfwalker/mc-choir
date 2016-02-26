@@ -230,6 +230,7 @@ function handleKeypress(inKey) {
 	$('[data-key="' + inKey+ '"]').click();
 }
 
+// rate button changes playback rate
 function handleRateButton(e) {
 	for (url in gSoundSources) {
 		var theInput = $('input[value="' + url + '"]');
@@ -253,6 +254,7 @@ function handleRateButton(e) {
 	}
 }
 
+// reverse button changes direction of playback
 function handleReverseButton(e) {
 	for (url in gSoundSources) {
 		if (gSoundSources[url]) {
@@ -268,6 +270,27 @@ function handleReverseButton(e) {
 		} else {
 			console.log(url, 'not playing');
 		}
+	}
+}
+
+// respond to a checkbox event either by starting or stopping sound
+function handleSoundCheckbox(e) {
+	$(this).toggleClass('checked');
+	$(this).parent().toggleClass('checked');
+	$(this).parent().parent().toggleClass('checked');
+
+	if ($(this).hasClass('checked')) {
+		if ($(this).data('exclusive')) {
+			console.log('exclusive, stop playing other sounds');
+			stopPlayingAllOtherSounds($(this));
+		} else {
+			console.log('not exclusive, do not stop other sounds');
+		}
+		console.log('CHECKED', $(this));
+		startPlayingSound($(this), true, true);
+	} else {
+		console.log('UNCHECKED', $(this));
+		stopPlayingSound($(this));
 	}
 }
 
@@ -299,29 +322,11 @@ if ((host == window.location.host) && (window.location.protocol != 'https:')) {
 		// rate button changes playback rate
 		$('#rate').click(handleRateButton);
 
-		// reverse button plays sounds backward, maybe
+		// reverse button changes direction of playback
 		$('#reverse').click(handleReverseButton);
 
 		// respond to a checkbox event either by starting or stopping sound
-		$(document).on('change', 'input:checkbox', function (e) {
-			$(this).toggleClass('checked');
-			$(this).parent().toggleClass('checked');
-			$(this).parent().parent().toggleClass('checked');
-
-			if ($(this).hasClass('checked')) {
-				if ($(this).data('exclusive')) {
-					console.log('exclusive, stop playing other sounds');
-					stopPlayingAllOtherSounds($(this));
-				} else {
-					console.log('not exclusive, do not stop other sounds');
-				}
-				console.log('CHECKED', $(this));
-				startPlayingSound($(this), true, true);
-			} else {
-				console.log('UNCHECKED', $(this));
-				stopPlayingSound($(this));
-			}
-		});
+		$(document).on('change', 'input:checkbox', handleSoundCheckbox);
 	});
 }
 
