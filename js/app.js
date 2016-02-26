@@ -300,11 +300,11 @@ if ((host == window.location.host) && (window.location.protocol != 'https:')) {
 	window.location.protocol = 'https';
 } else {
 	$(document).ready(function() {
-		// TODO: graceful exit if Web Audio API is absent
 		if (window.AudioContext||window.webkitAudioContext) {
 			// load all the sounds first
 			loadAllSounds();
 		} else {
+			// graceful exit if Web Audio API is absent
 			$('#missingWebAudioModal').modal('show');
 			console.log('No Web Audio API');
 		}
