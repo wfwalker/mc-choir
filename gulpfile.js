@@ -25,19 +25,25 @@ var srcFiles = [
 // dist/css/style.css becomes css/style.css, not /css/style.css.
 var rootDir = 'dist/';
 
-gulp.task('copy-fastclick', function() {
-    return gulp.src('node_modules/fastclick/lib/fastclick.js')
+gulp.task('copy-js-libs', function() {
+    return gulp.src([
+          'node_modules/jquery/dist/jquery.min.js',
+          'node_modules/fastclick/lib/fastclick.js',
+          'node_modules/bootstrap/dist/js/bootstrap.min.js'
+        ])
         .pipe(gulp.dest(function(file) {
             file.path = file.base + path.basename(file.path);
             return rootDir + 'js';
         }));
 });
 
-gulp.task('copy-jquery', function() {
-    return gulp.src('node_modules/jquery/dist/jquery.min.js')
+gulp.task('copy-css-libs', function() {
+    return gulp.src([
+          'node_modules/bootstrap/dist/css/bootstrap.css'
+        ])
         .pipe(gulp.dest(function(file) {
             file.path = file.base + path.basename(file.path);
-            return rootDir + 'js';
+            return rootDir + 'css';
         }));
 });
 
@@ -56,7 +62,7 @@ gulp.task('build', function(callback) {
   return gulp.src(srcFiles, { base: '.' }).pipe(gulp.dest(rootDir));
 });
 
-gulp.task('offline', ['build', 'copy-fastclick', 'copy-jquery'], function(callback) {
+gulp.task('offline', ['build', 'copy-js-libs', 'copy-css-libs'], function(callback) {
   oghliner.offline({
     rootDir: rootDir,
     fileGlobs: srcFiles,

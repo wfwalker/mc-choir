@@ -4,6 +4,7 @@
   "description": "web app for participants in a musique concrete choir for WAC 2016",
   "main": "index.html",
   "dependencies": {
+    "bootstrap": "^3.3.6",
     "fastclick": "^1.0.6",
     "gulp": "^3.9.0",
     "jquery": "^2.2.1",
