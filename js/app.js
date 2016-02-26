@@ -253,6 +253,24 @@ function handleRateButton(e) {
 	}
 }
 
+function handleReverseButton(e) {
+	for (url in gSoundSources) {
+		if (gSoundSources[url]) {
+			var theInput = $('input[value="' + url + '"]');
+			stopPlayingSound(theInput);
+			startPlayingSound(theInput, false, false);
+			ga('send', {
+				hitType: 'event',
+				eventCategory: 'Sounds',
+				eventAction: 'reverse',
+				eventLabel: url,
+			});
+		} else {
+			console.log(url, 'not playing');
+		}
+	}
+}
+
 // REDIRECT to HTTPS!
 var host = 'wfwalker.github.io';
 if ((host == window.location.host) && (window.location.protocol != 'https:')) {
@@ -282,23 +300,7 @@ if ((host == window.location.host) && (window.location.protocol != 'https:')) {
 		$('#rate').click(handleRateButton);
 
 		// reverse button plays sounds backward, maybe
-		$('#reverse').click(function (e) {
-			for (url in gSoundSources) {
-				if (gSoundSources[url]) {
-					var theInput = $('input[value="' + url + '"]');
-					stopPlayingSound(theInput);
-					startPlayingSound(theInput, false, false);
-					ga('send', {
-						hitType: 'event',
-						eventCategory: 'Sounds',
-						eventAction: 'reverse',
-						eventLabel: url,
-					});
-				} else {
-					console.log(url, 'not playing');
-				}
-			}
-		});
+		$('#reverse').click(handleReverseButton);
 
 		// respond to a checkbox event either by starting or stopping sound
 		$(document).on('change', 'input:checkbox', function (e) {
