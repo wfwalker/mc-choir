@@ -230,6 +230,29 @@ function handleKeypress(inKey) {
 	$('[data-key="' + inKey+ '"]').click();
 }
 
+function handleRateButton(e) {
+	for (url in gSoundSources) {
+		var theInput = $('input[value="' + url + '"]');
+		var rates = (theInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
+		var randomRate = rates[Math.floor(Math.random() * rates.length)];
+
+		if (gSoundSources[url]) {
+			gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
+			console.log(url, rates, randomRate);
+			theInput.attr('data-rate', randomRate);
+			$('#soundInfo').text(url + ', ' + rates + ' -> ' + randomRate);
+			ga('send', {
+				hitType: 'event',
+				eventCategory: 'Sounds',
+				eventAction: 'rate',
+				eventLabel: url,
+			});
+		} else {
+			console.log(url, 'not playing');
+		}
+	}
+}
+
 // REDIRECT to HTTPS!
 var host = 'wfwalker.github.io';
 if ((host == window.location.host) && (window.location.protocol != 'https:')) {
@@ -256,28 +279,7 @@ if ((host == window.location.host) && (window.location.protocol != 'https:')) {
 		});
 
 		// rate button changes playback rate
-		$('#rate').click(function (e) {
-			for (url in gSoundSources) {
-				var theInput = $('input[value="' + url + '"]');
-				var rates = (theInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
-				var randomRate = rates[Math.floor(Math.random() * rates.length)];
-
-				if (gSoundSources[url]) {
-					gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
-					console.log(url, rates, randomRate);
-					theInput.attr('data-rate', randomRate);
-					$('#soundInfo').text(url + ', ' + rates + ' -> ' + randomRate);
-					ga('send', {
-						hitType: 'event',
-						eventCategory: 'Sounds',
-						eventAction: 'rate',
-						eventLabel: url,
-					});
-				} else {
-					console.log(url, 'not playing');
-				}
-			}
-		});
+		$('#rate').click(handleRateButton);
 
 		// reverse button plays sounds backward, maybe
 		$('#reverse').click(function (e) {
