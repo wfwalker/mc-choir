@@ -29,7 +29,15 @@ gulp.task('copy-fastclick', function() {
     return gulp.src('node_modules/fastclick/lib/fastclick.js')
         .pipe(gulp.dest(function(file) {
             file.path = file.base + path.basename(file.path);
-            return 'dist/js';
+            return rootDir + 'js';
+        }));
+});
+
+gulp.task('copy-jquery', function() {
+    return gulp.src('node_modules/jquery/dist/jquery.min.js')
+        .pipe(gulp.dest(function(file) {
+            file.path = file.base + path.basename(file.path);
+            return rootDir + 'js';
         }));
 });
 
@@ -48,7 +56,7 @@ gulp.task('build', function(callback) {
   return gulp.src(srcFiles, { base: '.' }).pipe(gulp.dest(rootDir));
 });
 
-gulp.task('offline', ['build', 'copy-fastclick'], function(callback) {
+gulp.task('offline', ['build', 'copy-fastclick', 'copy-jquery'], function(callback) {
   oghliner.offline({
     rootDir: rootDir,
     fileGlobs: srcFiles,
