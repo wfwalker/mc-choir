@@ -1,7 +1,7 @@
 {
 	"lang": "en",
 	"name": "MC Choir",
-	"start_url": "/index.html",
+	"start_url": "index.html",
 	"display": "standalone",
 	"icons": [{
 		"src": "img/chorister.png",
