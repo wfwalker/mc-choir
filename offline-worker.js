@@ -39,7 +39,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '4bd59a0a229101352cd1764e7d886614b544642f';
+      return this.CACHE_PREFIX + '662037c429b994c1cc452de85eacf78b223e83b1';
     },
 
     // This is a list of resources that will be cached.
@@ -47,15 +47,15 @@
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
       './index.html', // a15c6ad82fbe65db8de23d2a83df793f4f4d436b
       './laptop.html', // 5c2d4638c859fd211d4e030c2405c6617b60f2ba
-      './audio/org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
-      './audio/org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
-      './audio/org-highmelodic.mp3', // 290d3bada7db423f9be3db827452394422e383d7
-      './audio/org-lowmelodic.mp3', // 57628d0d10229d1d522bf11187f75c4dda4e6687
+      './audio/org-arpeggio.mp3', // 39d626c2840f05ab2e9623c63f7ede76f64b2b53
+      './audio/org-chordrhythm.mp3', // 51eed667e9728d686d3537649d203ba2a1218d8c
+      './audio/org-highmelodic.mp3', // 2cd9442da4eef2bea3dcad83c95b757e23a970dd
+      './audio/org-lowmelodic.mp3', // 6c4a6ec1b24ea5c54cc28d374ac0ee733b6e07d2
       './audio/org-mel1.mp3', // 8956d893553aa2b423476faff5b017370687cdf1
-      './audio/org-perc.mp3', // 8f1b28517550aa8fbc0af8b581fb835945468b6b
-      './audio/org-shout.mp3', // 507878565736441fcfea20384a3361deb629293e
-      './audio/org-stabs.mp3', // 6ba7326cd6fda71048234d7265da13f6fa53e085
-      './audio/org-sust1.mp3', // 3c7f1e8dd3fdaa33d4132797dda3a469fbd6ef6b
+      './audio/org-perc.mp3', // fd1e125abccc25a70b6046082bc099483ac56a64
+      './audio/org-shout.mp3', // 893b158c19c8411308075d246e18a1d0df45880f
+      './audio/org-stabs.mp3', // 23e47b0beb910057854e0bcb6c8fc16e0c090b70
+      './audio/org-sust1.mp3', // c5b2d47fbbb59bf80b7a9cc6a4ec60be745eb628
       './audio/saw440.mp3', // d0622a2fa3c5aac241c53a7eb9bbbecadce7a640
       './audio/sqr440.mp3', // af66b6594f894fad0503bb1b0bfe5f3993c64111
       './audio/Vla1-HarmonicsX.mp3', // f62d6abc99dbdde9827b43c692a332f90578c2d7
