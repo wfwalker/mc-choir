@@ -4,7 +4,7 @@
 	"start_url": "/index.html",
 	"display": "standalone",
 	"icons": [{
-		"src": "chorister.png",
+		"src": "img/chorister.png",
 		"sizes": "300x300",
 		"type": "image/png"
 	}],
