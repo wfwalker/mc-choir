@@ -11,7 +11,7 @@ gulp.task('default', ['build', 'offline']);
 var srcFiles = [
   '*.html',
   'audio/*.mp3',
-  '*.png',
+  'img/*.png',
   'w3c-manifest.json',
   'css/*.css',
   'fonts/*.*',
