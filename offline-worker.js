@@ -39,13 +39,13 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + 'aafa5b2072d321a0e024524334d52046ebd69ca8';
+      return this.CACHE_PREFIX + '4bd59a0a229101352cd1764e7d886614b544642f';
     },
 
     // This is a list of resources that will be cached.
     RESOURCES: [
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
-      './index.html', // 0022378aeefa5da5f9e48ee328ea20d5f9cf029b
+      './index.html', // a15c6ad82fbe65db8de23d2a83df793f4f4d436b
       './laptop.html', // 5c2d4638c859fd211d4e030c2405c6617b60f2ba
       './audio/org-arpeggio.mp3', // 16abd9941059a90e2da68d83172da6ccbd70a8bf
       './audio/org-chordrhythm.mp3', // 1fed825a05c4414a0ce95e8723950ee8ede72aaa
@@ -66,23 +66,23 @@
       './audio/Vla6-ArpX.mp3', // 80679732d7e15fe623352600e4033ef3e03dfc53
       './audio/Vla7-WoodKnockX.mp3', // 64931c5358fc468d2849290e815333c23e13be1a
       './audio/Vla8-Trill-SnapX.mp3', // 3c2baa572349c5d9eb383d9474e507234fc3c798
-      './chorister.png', // 8165e80d894c7a8797da1480240d2cb3ce96117c
-      './org-arpeggio.png', // 7461db9b8d1ca4bc5a1a7f289556a54f5cffd902
-      './org-chordrhythm.png', // ee4cbe1b8a1715f5b03c0121cdaec12366d4327b
-      './org-highmelodic.png', // bbb70ff3cf31cfbc7b4272f509c969a06e87f00b
-      './org-lowmelodic.png', // 678cca109bcd9db2816f538f98cccc2eb9890801
-      './org-perc.png', // f41c4071928ca237e02aa1616b941bff92875c4b
-      './org-shout.png', // 4d1e327862b027e267d031bbd2ca252c07d51822
-      './org-stabs.png', // a721e8b3594a4258e68c6d78ab3e81104b12fdb8
-      './org-sust1.png', // f5aae3eb2960a1cab68fd1d367ab2be941cee87a
-      './Vla1-HarmonicsX.png', // 6b81523e20228b45df3c1dca5657fe1f49ce372a
-      './Vla2-GlissX.png', // a2790ce790a1e3a3bbed755a1518ea658175728a
-      './Vla3-Melody1X.png', // 85bf14e0255592e6406edcd421aeec1bfbfef380
-      './Vla4-Melody2X.png', // 4eb1fc2c18ecbf34984565aa776b40967f4dd25d
-      './Vla5-PizzX.png', // 0563077d5f940a2c41206c28b5458fc87ae778c5
-      './Vla6-ArpX.png', // 97f0ef89fad7b7e0aaa1e6137249fc5138abd2f8
-      './Vla7-WoodKnockX.png', // d885c332f86def824bad187072784536568b2ca5
-      './Vla8-Trill-SnapX.png', // d6223e85bf8a00083667198bc372afcc797feefb
+      './img/chorister.png', // 8165e80d894c7a8797da1480240d2cb3ce96117c
+      './img/org-arpeggio.png', // 7461db9b8d1ca4bc5a1a7f289556a54f5cffd902
+      './img/org-chordrhythm.png', // ee4cbe1b8a1715f5b03c0121cdaec12366d4327b
+      './img/org-highmelodic.png', // bbb70ff3cf31cfbc7b4272f509c969a06e87f00b
+      './img/org-lowmelodic.png', // 678cca109bcd9db2816f538f98cccc2eb9890801
+      './img/org-perc.png', // f41c4071928ca237e02aa1616b941bff92875c4b
+      './img/org-shout.png', // 4d1e327862b027e267d031bbd2ca252c07d51822
+      './img/org-stabs.png', // a721e8b3594a4258e68c6d78ab3e81104b12fdb8
+      './img/org-sust1.png', // f5aae3eb2960a1cab68fd1d367ab2be941cee87a
+      './img/Vla1-HarmonicsX.png', // 6b81523e20228b45df3c1dca5657fe1f49ce372a
+      './img/Vla2-GlissX.png', // a2790ce790a1e3a3bbed755a1518ea658175728a
+      './img/Vla3-Melody1X.png', // 85bf14e0255592e6406edcd421aeec1bfbfef380
+      './img/Vla4-Melody2X.png', // 4eb1fc2c18ecbf34984565aa776b40967f4dd25d
+      './img/Vla5-PizzX.png', // 0563077d5f940a2c41206c28b5458fc87ae778c5
+      './img/Vla6-ArpX.png', // 97f0ef89fad7b7e0aaa1e6137249fc5138abd2f8
+      './img/Vla7-WoodKnockX.png', // d885c332f86def824bad187072784536568b2ca5
+      './img/Vla8-Trill-SnapX.png', // d6223e85bf8a00083667198bc372afcc797feefb
       './w3c-manifest.json', // ad464e342585e3d52ff2d973486c5310371a9f99
       './css/app.css', // 338bac1f4bd2302dcf0f205c858b568f92881170
       './css/bootstrap.css', // 4316dcfb54e1b0a428e1d37203a4028fd0408298
