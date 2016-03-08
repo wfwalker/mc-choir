@@ -163,14 +163,21 @@ function startPlayingSound(activeInput, isFreshStart) {
 			newSoundSource.buffer = gReversedSounds[soundURL];
 		}
 
-		// compute random offset
-		var offset = Math.random() * newSoundSource.buffer.duration;
-		console.log('duration', newSoundSource.buffer.duration, 'offset', offset, 'forward', activeInput.attr('data-forward'));
+		var offset = 0;
 
 		newSoundSource.loop = true;
 		newSoundSource.playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 		newSoundSource.start(0, offset);
+
+		if (activeInput.attr('data-randomstart') == 'true') {
+			// compute random offset
+			offset = Math.random() * newSoundSource.buffer.duration;
+		} else {
+			console.log('random start offset suppressed', soundURL);
+		}
+
 		gSoundSources[soundURL] = newSoundSource;
+		console.log('duration', newSoundSource.buffer.duration, 'offset', offset, 'forward', activeInput.attr('data-forward'));
 		console.log('STARTED', soundURL, gSoundSources[soundURL]);
 		$('#soundInfo').text(soundURL + ', ' + rates + ' -> ' + randomRate);
 	} else {
