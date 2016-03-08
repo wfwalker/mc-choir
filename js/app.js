@@ -112,8 +112,8 @@ function loadAllSounds() {
 //       value='./Vla1-HarmonicsX.mp3' data-exclusive='false'
 //       data-rates='1.0, 2.0, 0.5, 1.5, 0.66667, 1.3333, 0.75' autocomplete="off">
 
-function startPlayingSound(activeInput, chooseNewRate, chooseRandomDirection) {
-	console.log('startPlayingSound', chooseNewRate, chooseRandomDirection);
+function startPlayingSound(activeInput, isFreshStart) {
+	console.log('startPlayingSound', isFreshStart);
 
 	var soundURL = activeInput.attr('value');
 	var rates = (activeInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
@@ -121,8 +121,8 @@ function startPlayingSound(activeInput, chooseNewRate, chooseRandomDirection) {
 	// retrieve the old rate
 	var randomRate = activeInput.attr('data-rate');
 
-	// if requested, choose a new rate
-	if (chooseNewRate) {
+	// if this is a fresh start, choose a new rate
+	if (isFreshStart) {
 		randomRate = rates[Math.floor(Math.random() * rates.length)];
 		activeInput.attr('data-rate', randomRate);
 	}
@@ -142,21 +142,20 @@ function startPlayingSound(activeInput, chooseNewRate, chooseRandomDirection) {
 		// either choose playback direction randomly,
 		// 	or opposite to current direction
 
-		var newDirection = Math.random() > 0.5;
+		var playForward = Math.random() > 0.5;
 
-		if (chooseRandomDirection) {
-			console.log('yes random direction, we picked', newDirection);
+		if (isFreshStart) {
+			console.log('yes random direction, we picked', playForward);
 		} else {
 			console.log('reverse existing direction');
 			if (activeInput.attr('data-forward')) {
-				newDirection = (activeInput.attr('data-forward') == 'false');
+				playForward = (activeInput.attr('data-forward') == 'false');
 			} else {
 				console.log('missing direction attribute!');
 			}
 		}
 
-		// play forwards or backwards, at random
-		if (newDirection) {
+		if (playForward) {
 			activeInput.attr('data-forward', true);
 			newSoundSource.buffer = gSounds[soundURL];
 		} else {
@@ -260,7 +259,7 @@ function handleReverseButton(e) {
 		if (gSoundSources[url]) {
 			var theInput = $('input[value="' + url + '"]');
 			stopPlayingSound(theInput);
-			startPlayingSound(theInput, false, false);
+			startPlayingSound(theInput, false);
 			ga('send', {
 				hitType: 'event',
 				eventCategory: 'Sounds',
@@ -287,7 +286,7 @@ function handleSoundCheckbox(e) {
 			console.log('not exclusive, do not stop other sounds');
 		}
 		console.log('CHECKED', $(this));
-		startPlayingSound($(this), true, true);
+		startPlayingSound($(this), true);
 	} else {
 		console.log('UNCHECKED', $(this));
 		stopPlayingSound($(this));
