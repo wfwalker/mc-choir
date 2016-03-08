@@ -39,14 +39,14 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + 'd81e3e9de102bf5d3a5cf886ad4d5145d2a099ab';
+      return this.CACHE_PREFIX + '46442a54788756b4b262e7820013da7248b636b2';
     },
 
     // This is a list of resources that will be cached.
     RESOURCES: [
       './cards.html', // 8e4908310d6425390328a74fe6227068d4fc734e
       './index.html', // a15c6ad82fbe65db8de23d2a83df793f4f4d436b
-      './laptop.html', // 5c2d4638c859fd211d4e030c2405c6617b60f2ba
+      './laptop.html', // 5beb63e5d12698bd73678f77c5519c827c197b75
       './audio/org-arpeggio.mp3', // 39d626c2840f05ab2e9623c63f7ede76f64b2b53
       './audio/org-chordrhythm.mp3', // 51eed667e9728d686d3537649d203ba2a1218d8c
       './audio/org-highmelodic.mp3', // 2cd9442da4eef2bea3dcad83c95b757e23a970dd
