@@ -7,12 +7,6 @@ body {
   padding-top: 60px;
 }
 
-label.checkbox-inline {
-	font-size: 72pt;
-	color: white;
-	width: 100%;
-}
-
 .glyphicon-heart {
 	color: #D9534F;	
 }
@@ -24,7 +18,7 @@ label.checkbox-inline {
 	border-radius: 10px;	
 	height: 130px;
 	font-family: sans-serif;
-	font-size: 24pt;
+	font-size: 18pt;
 	color: white;
 }
 
