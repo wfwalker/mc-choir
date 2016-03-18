@@ -19,6 +19,7 @@ function getArrayBuffer(url) {
       // This is called even on 404 etc so check the status
       if (req.status == 200) {
         // Resolve the promise with the response body
+        console.log('LOADED', url);
         resolve(req.response);
       }
       else {
@@ -39,7 +40,7 @@ function getArrayBuffer(url) {
 }
 
 function createReverseBuffer(inForwardBuffer) {
-	console.time('reverse' + inForwardBuffer.length);
+	// console.time('reverse' + inForwardBuffer.length);
 	var forwardChannelData = inForwardBuffer.getChannelData(0);
 	var reverseBuffer = gAudioContext.createBuffer(1, inForwardBuffer.length, inForwardBuffer.sampleRate);
 	var reverseChannelData = reverseBuffer.getChannelData(0);
@@ -49,7 +50,7 @@ function createReverseBuffer(inForwardBuffer) {
 		reverseChannelData[i] = forwardChannelData[--j];
 	}
 
-	console.timeEnd('reverse' + inForwardBuffer.length);
+	// console.timeEnd('reverse' + inForwardBuffer.length);
 	return reverseBuffer;
 }
 
@@ -64,11 +65,11 @@ function loadSound(inSoundDataURL) {
 	return getArrayBuffer(inSoundDataURL).then(function(response) {
 		gSoundProgress++;
 		$('.progress-bar').css('width', Math.floor(100 * gSoundProgress / gSoundTotal) + '%');
-		console.time('decode' + inSoundDataURL);
+		// console.time('decode' + inSoundDataURL);
 		$('#loadingStatus').text('DECODE ' + inSoundDataURL);
 	    return decodeAudioDataAsync(response);
 	}).then(function(decodedBuffer) {
-		console.timeEnd('decode' + inSoundDataURL);
+		// console.timeEnd('decode' + inSoundDataURL);
 		gSounds[inSoundDataURL] = decodedBuffer;
 
 		gSoundProgress++;
@@ -95,8 +96,6 @@ function loadAllSounds() {
 	$('.soundbutton').each(function (index) {
 		loadPromises.push(loadSound($(this).data('url')));
 	});
-
-	console.log('promises', loadPromises);
 
 	// there are three tasks for each soundfile, to load, to decode, and to reverse
 
