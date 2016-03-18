@@ -28,14 +28,12 @@ label.checkbox-inline {
 	color: white;
 }
 
-/*.soundbutton:not(:active) {
-    transition: background-color 500ms step-end;
+.soundbutton.playing[data-forward=true] {
+	-moz-transform:scaleX(-1);
+	-o-transform:scaleX(-1);
+	-webkit-transform:scaleX(-1);
+	transform:scaleX(-1);
 }
-
-.soundbutton:active {
-    background: gray;
-}
-*/
 
 .playing {
 	border: solid 3px black;
