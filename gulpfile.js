@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var oghliner = require('oghliner');
 var eslint = require('gulp-eslint');
 var path = require('path');
-// var connect = require('gulp-connect');
+var connect = require('gulp-connect');
 
 gulp.task('default', ['build', 'offline']);
 
@@ -63,22 +63,23 @@ gulp.task('build', function(callback) {
   return gulp.src(srcFiles, { base: '.' }).pipe(gulp.dest(rootDir));
 });
 
-gulp.task('offline', ['build', 'copy-js-libs', 'copy-css-libs'], function(callback) {
-  oghliner.offline({
+gulp.task('offline', ['build', 'copy-js-libs', 'copy-css-libs'], function() {
+  return oghliner.offline({
     rootDir: rootDir,
     fileGlobs: srcFiles,
-  }, callback);
+  });
 });
 
-gulp.task('deploy', ['offline'], function(callback) {
-  oghliner.deploy({
+gulp.task('deploy', function(callback) {
+  return oghliner.deploy({
     rootDir: rootDir,
   }, callback);
 });
 
-// gulp.task('serve', ['deploy'], function () {
-//   connect.server({
-//     root: 'dist',
-//   });
-// });
+gulp.task('serve', ['offline'], function () {
+  connect.server({
+    root: 'dist',
+    port: 8085
+  });
+});
 
