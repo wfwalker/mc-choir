@@ -17,23 +17,36 @@ label.checkbox-inline {
 	color: #D9534F;	
 }
 
-.waveform {
+.soundbutton {
 	background-size: contain;
 	background-position: center center;
 	background-repeat: no-repeat;
+	border-radius: 10px;	
+	height: 130px;
+	font-family: sans-serif;
+	font-size: 24pt;
+	color: white;
 }
 
-.big-rounded {
+/*.soundbutton:not(:active) {
+    transition: background-color 500ms step-end;
+}
+
+.soundbutton:active {
+    background: gray;
+}
+*/
+
+.playing {
+	border: solid 3px black;
+}
+
+.notplaying {
 	border: solid 3px white;
-	border-radius: 10px;	
 }
 
 .heart {
 	background-color: #D9534F;
-}
-
-div.checked {
-	border: solid 3px black;
 }
 
 .glyphicon-tree-deciduous {

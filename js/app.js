@@ -92,9 +92,11 @@ function loadAllSounds() {
 
 	// find all the radio button tags, assume all their values are soundfile URL's, load them.
 
-	$('label.checkbox-inline input').each(function (index) {
-		loadPromises.push(loadSound($(this).attr('value')));
+	$('.soundbutton').each(function (index) {
+		loadPromises.push(loadSound($(this).data('url')));
 	});
+
+	console.log('promises', loadPromises);
 
 	// there are three tasks for each soundfile, to load, to decode, and to reverse
 
@@ -115,7 +117,7 @@ function loadAllSounds() {
 function startPlayingSound(activeInput, isFreshStart) {
 	console.log('startPlayingSound', isFreshStart);
 
-	var soundURL = activeInput.attr('value');
+	var soundURL = activeInput.data('url');
 	var rates = (activeInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
 
 	// retrieve the old rate
@@ -179,14 +181,15 @@ function startPlayingSound(activeInput, isFreshStart) {
 		gSoundSources[soundURL] = newSoundSource;
 		console.log('duration', newSoundSource.buffer.duration, 'offset', offset, 'forward', activeInput.attr('data-forward'));
 		console.log('STARTED', soundURL, gSoundSources[soundURL]);
+		activeInput.text(randomRate + 'x');
 		$('#soundInfo').text(soundURL + ', ' + rates + ' -> ' + randomRate);
 	} else {
-		console.log('ERROR, did not find in library', soundURL);
+		console.log('ERROR, did not find in library', soundURL, gSoundSources);
 	}
 }
 
 function stopPlayingSound(activeInput) {
-	var soundURL = activeInput.attr('value');
+	var soundURL = activeInput.data('url');
 
 	if (gSoundSources[soundURL]) {
 		gSoundSources[soundURL].stop(0);
@@ -194,6 +197,7 @@ function stopPlayingSound(activeInput) {
 		gSoundSources[soundURL] = null;
 		$('#soundInfo').text('');
 		console.log('STOPPED', soundURL);		
+		activeInput.text('');
 
 		ga('send', {
 			hitType: 'event',
@@ -207,26 +211,22 @@ function stopPlayingSound(activeInput) {
 }
 
 function stopPlayingAllSounds() {
-	$('label.checkbox-inline input').each(function (index) {
+	$('.soundbutton').each(function (index) {
 		stopPlayingSound($(this));
-		$(this).removeClass('checked');
-		$(this).parent().removeClass('checked');
-		$(this).parent().parent().removeClass('checked');
-		$(this).attr('checked', false);
+		$(this).removeClass('playing');
+		$(this).addClass('notplaying');
 	});
 }
 
 function stopPlayingAllOtherSounds(activeInput) {
-	$('label.checkbox-inline input').each(function (index) {
-		if ($(this).attr('value') == activeInput.attr('value')) {
+	$('.soundbutton').each(function (index) {
+		if ($(this).data('url') == activeInput.data('url')) {
 			// console.log('skip stopping', activeInput.attr('value'));
 		} else {
 			// console.log('do not skip', activeInput.attr('value'), $(this).attr('value'))
 			stopPlayingSound($(this));
-			$(this).removeClass('checked');
-			$(this).parent().removeClass('checked');
-			$(this).parent().parent().removeClass('checked');
-			$(this).attr('checked', false);
+			$(this).removeClass('playing');
+			$(this).addClass('notplaying');
 		}
 	});
 }
@@ -239,7 +239,7 @@ function handleKeypress(inKey) {
 // rate button changes playback rate
 function handleRateButton(e) {
 	for (url in gSoundSources) {
-		var theInput = $('input[value="' + url + '"]');
+		var theInput = $('.soundbutton[data-url="' + url + '"]');
 		var rates = (theInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
 		var randomRate = rates[Math.floor(Math.random() * rates.length)];
 
@@ -247,6 +247,7 @@ function handleRateButton(e) {
 			gSoundSources[url].playbackRate.linearRampToValueAtTime(randomRate, gAudioContext.currentTime);
 			console.log(url, rates, randomRate);
 			theInput.attr('data-rate', randomRate);
+			theInput.text(randomRate + 'x');
 			$('#soundInfo').text(url + ', ' + rates + ' -> ' + randomRate);
 			ga('send', {
 				hitType: 'event',
@@ -264,7 +265,7 @@ function handleRateButton(e) {
 function handleReverseButton(e) {
 	for (url in gSoundSources) {
 		if (gSoundSources[url]) {
-			var theInput = $('input[value="' + url + '"]');
+			var theInput = $('.soundbutton[data-url="' + url + '"]');
 			stopPlayingSound(theInput);
 			startPlayingSound(theInput, false);
 			ga('send', {
@@ -281,11 +282,10 @@ function handleReverseButton(e) {
 
 // respond to a checkbox event either by starting or stopping sound
 function handleSoundCheckbox(e) {
-	$(this).toggleClass('checked');
-	$(this).parent().toggleClass('checked');
-	$(this).parent().parent().toggleClass('checked');
+	$(this).toggleClass('playing');
+	$(this).toggleClass('notplaying');
 
-	if ($(this).hasClass('checked')) {
+	if ($(this).hasClass('playing')) {
 		if ($(this).data('exclusive')) {
 			console.log('exclusive, stop playing other sounds');
 			stopPlayingAllOtherSounds($(this));
@@ -332,7 +332,7 @@ if ((host == window.location.host) && (window.location.protocol != 'https:')) {
 		$('#reverse').click(handleReverseButton);
 
 		// respond to a checkbox event either by starting or stopping sound
-		$(document).on('change', 'input:checkbox', handleSoundCheckbox);
+		$('.soundbutton').click(handleSoundCheckbox);
 	});
 }
 

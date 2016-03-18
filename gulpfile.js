@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var oghliner = require('oghliner');
 var eslint = require('gulp-eslint');
 var path = require('path');
+// var connect = require('gulp-connect');
 
 gulp.task('default', ['build', 'offline']);
 
@@ -69,8 +70,15 @@ gulp.task('offline', ['build', 'copy-js-libs', 'copy-css-libs'], function(callba
   }, callback);
 });
 
-gulp.task('deploy', function(callback) {
+gulp.task('deploy', ['offline'], function(callback) {
   oghliner.deploy({
     rootDir: rootDir,
   }, callback);
 });
+
+// gulp.task('serve', ['deploy'], function () {
+//   connect.server({
+//     root: 'dist',
+//   });
+// });
+
