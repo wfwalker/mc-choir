@@ -117,6 +117,7 @@ function startPlayingSound(activeInput, isFreshStart) {
 	console.log('startPlayingSound', isFreshStart);
 
 	var soundURL = activeInput.data('url');
+	var stereoFlag = activeInput.data('stereo');
 	var rates = (activeInput.data('rates')+'').split(',').map(function(str) { return parseFloat(str); });
 
 	// retrieve the old rate
@@ -138,7 +139,16 @@ function startPlayingSound(activeInput, isFreshStart) {
 
 		// start playing immediately in a loop
 		var newSoundSource = gAudioContext.createBufferSource();
-		newSoundSource.connect(gAudioContext.destination);
+		console.log('flag', stereoFlag);
+		if (stereoFlag) {
+			var newPanner = gAudioContext.createStereoPanner();
+			newPanner.pan.value = (Math.random() * 2.0) - 1.0;
+			console.log('pan', newPanner.pan.value);
+			newSoundSource.connect(newPanner);
+			newPanner.connect(gAudioContext.destination);
+		} else {
+			newSoundSource.connect(gAudioContext.destination);
+		}
 
 		// either choose playback direction randomly,
 		// 	or opposite to current direction
