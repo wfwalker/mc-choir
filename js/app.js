@@ -7,6 +7,7 @@ var gSounds = {};
 var gReversedSounds = {};
 var gSoundProgress = 0;
 var gSoundTotal = 0;
+var gBrowserSupportsStereoPanner = ("createStereoPanner" in gAudioContext);
 
 function getArrayBuffer(url) {
   // Return a new promise.
@@ -140,7 +141,7 @@ function startPlayingSound(activeInput, isFreshStart) {
 		// start playing immediately in a loop
 		var newSoundSource = gAudioContext.createBufferSource();
 		console.log('flag', stereoFlag);
-		if (stereoFlag) {
+		if (gBrowserSupportsStereoPanner && stereoFlag) {
 			var newPanner = gAudioContext.createStereoPanner();
 			newPanner.pan.value = (Math.random() * 2.0) - 1.0;
 			console.log('pan', newPanner.pan.value);
