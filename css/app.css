@@ -23,7 +23,7 @@ body {
 	transition: transform 200ms;
 }
 
-.soundbutton.playing[data-forward=true] {
+.soundbutton.playing[data-forward=false] {
 	-moz-transform:scaleX(-1);
 	-o-transform:scaleX(-1);
 	-webkit-transform:scaleX(-1);
